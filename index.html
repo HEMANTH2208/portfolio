@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemanth B - Data Scientist Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-inner">
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+                <div class="loader-line-wrap">
+                    <div class="loader-line"></div>
+                </div>
+            </div>
+        </div>
+        <p>Loading Portfolio...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">HB</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#" class="nav-link admin-btn" onclick="openAdminPanel()">Admin</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="typing-text">Hi, I'm Hemanth B</span>
+                    </h1>
+                    <p class="hero-subtitle">Aspiring Data Scientist | AI & ML Enthusiast</p>
+                    <p class="hero-description">Fellow at NxtWave's CCBP 4.0 Academy, passionate about transforming data into insights</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                        <a href="#projects" class="btn btn-secondary">View Projects</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/hemanthb22" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:bhemanth2221@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/HEMANTH2208" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-card">
+                        <div class="profile-img">
+                            <div class="avatar">HB</div>
+                        </div>
+                        <div class="floating-elements">
+                            <div class="floating-icon" style="--delay: 0s"><i class="fas fa-brain"></i></div>
+                            <div class="floating-icon" style="--delay: 1s"><i class="fas fa-chart-line"></i></div>
+                            <div class="floating-icon" style="--delay: 2s"><i class="fas fa-robot"></i></div>
+                            <div class="floating-icon" style="--delay: 3s"><i class="fas fa-database"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Professional Summary</h3>
+                    <p>Aspiring Data Scientist with a strong passion for Artificial Intelligence, Machine Learning, and Data Science. Currently a Fellow at NxtWave's CCBP 4.0 Academy, seeking internship opportunities to apply analytical and technical skills in real-world projects.</p>
+                    
+                    <div class="education">
+                        <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+                        <div class="education-item">
+                            <h5>BTECH in Artificial Intelligence and Data Science</h5>
+                            <p>Sri Sairam Engineering College, Tambaram Chennai</p>
+                            <span class="year">2024 – 2028 Batch</span>
+                        </div>
+                    </div>
+
+                    <div class="location">
+                        <h4><i class="fas fa-map-marker-alt"></i> Location</h4>
+                        <p>Sriperumbudur, Chennai, 602105</p>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="4">0</div>
+                        <div class="stat-label">Years of Study</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="4">0</div>
+                        <div class="stat-label">Certifications</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="100">0</div>
+                        <div class="stat-label">% Dedication</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Python Internship</h3>
+                        <h4>Pantech Solutions</h4>
+                        <span class="timeline-date">May 19, 2025 - May 29, 2025</span>
+                        <p>Gained hands-on experience in Python development and data analysis techniques.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>HACKFINITY 2025 Participant</h3>
+                        <h4>SIMATS Engineering College</h4>
+                        <span class="timeline-date">2025</span>
+                        <p>Participated in competitive hackathon, developing innovative solutions under time constraints.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>LinkedIn Automation Project</h3>
+                        <h4>Personal Project</h4>
+                        <span class="timeline-date">2025</span>
+                        <p>Automated LinkedIn post generation using MCP and Cursor AI to streamline content creation workflows with zero manual input.</p>
+                        <a href="https://www.linkedin.com/posts/hemanthb22_nxtwave-ccbp4academy-fullstackdevelopment-activity-7353095776916439041-kszJ" target="_blank" class="project-link">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>OutPass Pro</h3>
+                        <p>A comprehensive web-based student outpass management system built with Python Flask, featuring QR code scanning, automated SMS notifications, and multi-level authentication.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python Flask</span>
+                            <span class="tech-tag">SQLite/PostgreSQL</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Twilio</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://www.linkedin.com/posts/hemanthb22_nxtwave-ccbp4academy-fullstackdevelopment-activity-7353095776916439041-kszJ" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>LinkedIn Automation</h3>
+                        <p>Automated LinkedIn post generation system using MCP and Cursor AI for streamlined content creation with zero manual input.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">AI/ML</span>
+                            <span class="tech-tag">Automation</span>
+                            <span class="tech-tag">MCP</span>
+                            <span class="tech-tag">Cursor AI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Python</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>C</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>SQL</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Web Technologies</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>HTML</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>CSS</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Tools & Software</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Excel</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="certifications">
+                <h3>Certifications</h3>
+                <div class="cert-grid">
+                    <div class="cert-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4>HACKFINITY</h4>
+                        <p>SIMATS Engineering College</p>
+                    </div>
+                    <div class="cert-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4>Design Thinking A Primer</h4>
+                        <p>NPTEL</p>
+                    </div>
+                    <div class="cert-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4>Microsoft Digital Productivity</h4>
+                        <p>NSDC</p>
+                    </div>
+                    <div class="cert-item">
+                        <i class="fas fa-certificate"></i>
+                        <h4>IEEEXtreme</h4>
+                        <p>IEEE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always open to discussing new opportunities, collaborations, or just having a chat about data science and AI!</p>
+                    
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <a href="mailto:bhemanth2221@gmail.com">bhemanth2221@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <a href="https://linkedin.com/in/hemanthb22" target="_blank">linkedin.com/in/hemanthb22</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Sriperumbudur, Chennai, 602105</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-folder"></i>
+                            <div>
+                                <h4>Portfolio Drive</h4>
+                                <a href="https://drive.google.com/drive/u/1/folders/1fIaCQHXqP5D_XoRMwBdTS65P8yG0VXtD" target="_blank">View Documents</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2025 Hemanth B. All rights reserved.</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://linkedin.com/in/hemanthb22" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:bhemanth2221@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/HEMANTH2208" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Admin Panel</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="admin-login" id="adminLogin">
+                    <h3>Admin Login</h3>
+                    <form id="adminLoginForm">
+                        <div class="form-group">
+                            <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+                
+                <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+                    <h3>Portfolio Management</h3>
+                    <div class="admin-tabs">
+                        <button class="tab-btn active" onclick="showTab('profile')">Profile</button>
+                        <button class="tab-btn" onclick="showTab('projects')">Projects</button>
+                        <button class="tab-btn" onclick="showTab('skills')">Skills</button>
+                        <button class="tab-btn" onclick="showTab('analytics')">Analytics</button>
+                    </div>
+                    
+                    <div id="profileTab" class="tab-content active">
+                        <h4>Edit Profile Information</h4>
+                        <form id="profileForm">
+                            <div class="form-group">
+                                <label>Name:</label>
+                                <input type="text" id="editName" value="Hemanth B">
+                            </div>
+                            <div class="form-group">
+                                <label>Title:</label>
+                                <input type="text" id="editTitle" value="Aspiring Data Scientist | AI & ML Enthusiast">
+                            </div>
+                            <div class="form-group">
+                                <label>Description:</label>
+                                <textarea id="editDescription">Fellow at NxtWave's CCBP 4.0 Academy, passionate about transforming data into insights</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+                    
+                    <div id="projectsTab" class="tab-content">
+                        <h4>Manage Projects</h4>
+                        <button class="btn btn-secondary" onclick="addProject()">Add New Project</button>
+                        <div id="projectsList">
+                            <!-- Projects will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div id="skillsTab" class="tab-content">
+                        <h4>Manage Skills</h4>
+                        <button class="btn btn-secondary" onclick="addSkill()">Add New Skill</button>
+                        <div id="skillsList">
+                            <!-- Skills will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div id="analyticsTab" class="tab-content">
+                        <h4>Portfolio Analytics</h4>
+                        <div class="analytics-grid">
+                            <div class="analytics-card">
+                                <h5>Page Views</h5>
+                                <div class="analytics-number">1,234</div>
+                            </div>
+                            <div class="analytics-card">
+                                <h5>Contact Form Submissions</h5>
+                                <div class="analytics-number">45</div>
+                            </div>
+                            <div class="analytics-card">
+                                <h5>Project Views</h5>
+                                <div class="analytics-number">567</div>
+                            </div>
+                            <div class="analytics-card">
+                                <h5>Profile Downloads</h5>
+                                <div class="analytics-number">89</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

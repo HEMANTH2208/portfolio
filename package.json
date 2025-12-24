@@ -1,0 +1,51 @@
+{
+  "name": "hemanth-portfolio",
+  "version": "1.0.0",
+  "description": "Professional portfolio website for Hemanth B - Aspiring Data Scientist",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server .",
+    "build": "echo 'No build process needed for static site'",
+    "deploy": "gh-pages -d .",
+    "lint": "eslint script.js",
+    "format": "prettier --write *.html *.css *.js"
+  },
+  "keywords": [
+    "portfolio",
+    "data-science",
+    "ai",
+    "machine-learning",
+    "web-development",
+    "responsive",
+    "animated"
+  ],
+  "author": {
+    "name": "Hemanth B",
+    "email": "bhemanth2221@gmail.com",
+    "url": "https://linkedin.com/in/hemanthb22"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HEMANTH2208/portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HEMANTH2208/portfolio/issues"
+  },
+  "homepage": "https://hemanth2208.github.io/portfolio",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.0.0",
+    "live-server": "^1.2.2",
+    "gh-pages": "^4.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
