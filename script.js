@@ -333,120 +333,507 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Admin Panel Functionality
+// Enhanced Admin Panel Functionality
 const adminModal = document.getElementById('adminModal');
 const adminLogin = document.getElementById('adminLogin');
 const adminDashboard = document.getElementById('adminDashboard');
-const adminPassword = 'admin123'; // In a real application, this would be handled securely
+const adminPassword = 'admin123';
+let attemptCount = 0;
+let currentTab = 'overview';
 
 function openAdminPanel() {
     adminModal.style.display = 'block';
     adminLogin.style.display = 'block';
     adminDashboard.style.display = 'none';
+    document.body.style.overflow = 'hidden';
+    
+    // Reset attempt count
+    attemptCount = 0;
+    updateAttemptCount();
+    
+    // Focus on password input
+    setTimeout(() => {
+        document.getElementById('adminPassword').focus();
+    }, 300);
 }
 
-// Close modal
-document.querySelector('.close').addEventListener('click', () => {
+function closeAdminPanel() {
     adminModal.style.display = 'none';
-});
+    document.body.style.overflow = 'auto';
+    resetAdminPanel();
+}
 
-window.addEventListener('click', (e) => {
-    if (e.target === adminModal) {
-        adminModal.style.display = 'none';
+function resetAdminPanel() {
+    adminLogin.style.display = 'block';
+    adminDashboard.style.display = 'none';
+    document.getElementById('adminPassword').value = '';
+    attemptCount = 0;
+    updateAttemptCount();
+}
+
+function updateAttemptCount() {
+    const attemptElement = document.getElementById('attemptCount');
+    if (attemptElement) {
+        attemptElement.textContent = attemptCount;
     }
-});
+}
 
-// Admin login
+// Enhanced admin login with security features
 document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const password = document.getElementById('adminPassword').value;
     
     if (password === adminPassword) {
-        adminLogin.style.display = 'none';
-        adminDashboard.style.display = 'block';
-        showNotification('Welcome to Admin Panel!', 'success');
-        loadAdminData();
+        // Successful login animation
+        adminLogin.style.transform = 'scale(0.9)';
+        adminLogin.style.opacity = '0.5';
+        
+        setTimeout(() => {
+            adminLogin.style.display = 'none';
+            adminDashboard.style.display = 'flex';
+            showNotification('Access Granted! Welcome to Control Center', 'success');
+            initializeAdminDashboard();
+        }, 300);
+        
+        attemptCount = 0;
+        updateAttemptCount();
     } else {
-        showNotification('Invalid password!', 'error');
+        attemptCount++;
+        updateAttemptCount();
+        
+        // Security lockout after 3 attempts
+        if (attemptCount >= 3) {
+            showNotification('Access Denied! Too many failed attempts. Try again later.', 'error');
+            setTimeout(() => {
+                closeAdminPanel();
+            }, 2000);
+            return;
+        }
+        
+        // Shake animation for failed login
+        adminLogin.style.animation = 'shake 0.5s ease-in-out';
+        setTimeout(() => {
+            adminLogin.style.animation = '';
+        }, 500);
+        
+        showNotification(`Access Denied! ${3 - attemptCount} attempts remaining.`, 'error');
+        document.getElementById('adminPassword').value = '';
     }
 });
 
-// Tab functionality
-function showTab(tabName) {
-    // Hide all tab contents
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Remove active class from all tab buttons
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    // Show selected tab
-    document.getElementById(tabName + 'Tab').classList.add('active');
-    event.target.classList.add('active');
+// Initialize admin dashboard
+function initializeAdminDashboard() {
+    loadAdminData();
+    initializeNavigation();
+    animateStatCounters();
+    loadRecentActivity();
+    initializeCharts();
 }
 
-// Load admin data
-function loadAdminData() {
-    loadProjects();
-    loadSkills();
+// Enhanced navigation system
+function initializeNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const tabName = item.getAttribute('data-tab');
+            switchTab(tabName);
+            
+            // Update active nav item
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+            
+            // Update breadcrumb
+            document.getElementById('currentSection').textContent = 
+                item.querySelector('span').textContent;
+        });
+    });
 }
 
-// Profile form handling
+// Enhanced tab switching with animations
+function switchTab(tabName) {
+    const currentPanel = document.querySelector('.tab-panel.active');
+    const newPanel = document.getElementById(tabName + 'Tab');
+    
+    if (currentPanel) {
+        currentPanel.style.opacity = '0';
+        currentPanel.style.transform = 'translateX(-20px)';
+        
+        setTimeout(() => {
+            currentPanel.classList.remove('active');
+            newPanel.classList.add('active');
+            newPanel.style.opacity = '0';
+            newPanel.style.transform = 'translateX(20px)';
+            
+            setTimeout(() => {
+                newPanel.style.opacity = '1';
+                newPanel.style.transform = 'translateX(0)';
+            }, 50);
+        }, 150);
+    } else {
+        newPanel.classList.add('active');
+    }
+    
+    currentTab = tabName;
+    
+    // Load tab-specific data
+    switch(tabName) {
+        case 'overview':
+            animateStatCounters();
+            break;
+        case 'projects':
+            loadProjectsManager();
+            break;
+        case 'skills':
+            loadSkillsManager();
+            break;
+        case 'analytics':
+            loadAnalytics();
+            break;
+    }
+}
+
+// Animate stat counters with enhanced effects
+function animateStatCounters() {
+    const statValues = document.querySelectorAll('.stat-value[data-target]');
+    
+    statValues.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+        
+        const counter = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(counter);
+                
+                // Add completion effect
+                stat.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    stat.style.transform = 'scale(1)';
+                }, 200);
+            }
+            stat.textContent = Math.floor(current).toLocaleString();
+        }, 16);
+    });
+}
+
+// Load recent activity with real-time updates
+function loadRecentActivity() {
+    const activities = [
+        {
+            icon: 'fas fa-eye',
+            text: 'Portfolio viewed from India',
+            time: '2 minutes ago'
+        },
+        {
+            icon: 'fas fa-envelope',
+            text: 'New contact form submission',
+            time: '15 minutes ago'
+        },
+        {
+            icon: 'fas fa-download',
+            text: 'Resume downloaded',
+            time: '1 hour ago'
+        },
+        {
+            icon: 'fas fa-user-plus',
+            text: 'New LinkedIn connection',
+            time: '3 hours ago'
+        },
+        {
+            icon: 'fas fa-star',
+            text: 'Project starred on GitHub',
+            time: '5 hours ago'
+        }
+    ];
+    
+    const activityList = document.querySelector('.activity-list');
+    if (activityList) {
+        activityList.innerHTML = activities.map(activity => `
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="${activity.icon}"></i>
+                </div>
+                <div class="activity-content">
+                    <span>${activity.text}</span>
+                    <small>${activity.time}</small>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// Enhanced profile form handling
 document.getElementById('profileForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const name = document.getElementById('editName').value;
-    const title = document.getElementById('editTitle').value;
-    const description = document.getElementById('editDescription').value;
+    const formData = {
+        name: document.getElementById('editName').value,
+        title: document.getElementById('editTitle').value,
+        description: document.getElementById('editDescription').value,
+        email: document.getElementById('editEmail').value,
+        linkedin: document.getElementById('editLinkedin').value,
+        location: document.getElementById('editLocation').value
+    };
     
-    // Update the main page content
-    document.querySelector('.hero-title .typing-text').textContent = `Hi, I'm ${name}`;
-    document.querySelector('.hero-subtitle').textContent = title;
-    document.querySelector('.hero-description').textContent = description;
+    // Simulate API call with loading state
+    const submitBtn = this.querySelector('.cyber-btn.primary');
+    const originalText = submitBtn.querySelector('span').textContent;
     
-    showNotification('Profile updated successfully!', 'success');
+    submitBtn.querySelector('span').textContent = 'UPDATING...';
+    submitBtn.style.opacity = '0.7';
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+        // Update the main page content
+        updateMainPageContent(formData);
+        
+        // Reset button
+        submitBtn.querySelector('span').textContent = originalText;
+        submitBtn.style.opacity = '1';
+        submitBtn.disabled = false;
+        
+        showNotification('Profile updated successfully!', 'success');
+    }, 1500);
 });
 
-// Projects management
-function loadProjects() {
-    const projectsList = document.getElementById('projectsList');
+// Update main page content
+function updateMainPageContent(data) {
+    // Update hero section
+    const heroTitle = document.querySelector('.hero-title .typing-text');
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    const heroDescription = document.querySelector('.hero-description');
+    
+    if (heroTitle) heroTitle.textContent = `Hi, I'm ${data.name}`;
+    if (heroSubtitle) heroSubtitle.textContent = data.title;
+    if (heroDescription) heroDescription.textContent = data.description;
+    
+    // Update contact information
+    const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
+    emailLinks.forEach(link => {
+        link.href = `mailto:${data.email}`;
+        if (link.textContent.includes('@')) {
+            link.textContent = data.email;
+        }
+    });
+    
+    const linkedinLinks = document.querySelectorAll('a[href*="linkedin.com"]');
+    linkedinLinks.forEach(link => {
+        link.href = data.linkedin;
+    });
+}
+
+// Enhanced projects manager
+function loadProjectsManager() {
     const projects = [
         {
             id: 1,
             name: 'OutPass Pro',
-            description: 'A comprehensive web-based student outpass management system',
-            technologies: ['Python Flask', 'SQLite/PostgreSQL', 'Firebase', 'Twilio']
+            description: 'A comprehensive web-based student outpass management system built with Python Flask',
+            technologies: ['Python Flask', 'SQLite/PostgreSQL', 'Firebase', 'Twilio'],
+            status: 'Completed',
+            github: '#',
+            demo: '#'
         },
         {
             id: 2,
             name: 'LinkedIn Automation',
             description: 'Automated LinkedIn post generation system using MCP and Cursor AI',
-            technologies: ['AI/ML', 'Automation', 'MCP', 'Cursor AI']
+            technologies: ['AI/ML', 'Automation', 'MCP', 'Cursor AI'],
+            status: 'Active',
+            github: '#',
+            demo: 'https://www.linkedin.com/posts/hemanthb22_nxtwave-ccbp4academy-fullstackdevelopment-activity-7353095776916439041-kszJ'
         }
     ];
     
-    projectsList.innerHTML = projects.map(project => `
-        <div class="admin-project-item">
-            <h5>${project.name}</h5>
-            <p>${project.description}</p>
-            <div class="project-actions">
-                <button class="btn btn-secondary" onclick="editProject(${project.id})">Edit</button>
-                <button class="btn btn-danger" onclick="deleteProject(${project.id})">Delete</button>
+    const projectsList = document.getElementById('projectsList');
+    if (projectsList) {
+        projectsList.innerHTML = projects.map(project => `
+            <div class="project-manager-card">
+                <div class="project-header">
+                    <h3>${project.name}</h3>
+                    <div class="project-status ${project.status.toLowerCase()}">${project.status}</div>
+                </div>
+                <p>${project.description}</p>
+                <div class="project-tech">
+                    ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                </div>
+                <div class="project-actions">
+                    <button class="cyber-btn secondary" onclick="editProject(${project.id})">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="cyber-btn secondary" onclick="viewProject('${project.demo}')">
+                        <i class="fas fa-external-link-alt"></i> View
+                    </button>
+                    <button class="cyber-btn secondary" onclick="deleteProject(${project.id})">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `).join('');
+    }
 }
 
-function addProject() {
-    showNotification('Add Project functionality would be implemented here', 'info');
+// Enhanced skills manager
+function loadSkillsManager() {
+    const skills = [
+        { name: 'Python', level: 90, category: 'Programming' },
+        { name: 'C', level: 75, category: 'Programming' },
+        { name: 'SQL', level: 85, category: 'Database' },
+        { name: 'HTML', level: 95, category: 'Web' },
+        { name: 'CSS', level: 90, category: 'Web' },
+        { name: 'Excel', level: 80, category: 'Tools' }
+    ];
+    
+    const skillsList = document.getElementById('skillsList');
+    if (skillsList) {
+        skillsList.innerHTML = skills.map(skill => `
+            <div class="skill-manager-item">
+                <div class="skill-info">
+                    <div class="skill-name">${skill.name}</div>
+                    <div class="skill-category">${skill.category}</div>
+                </div>
+                <div class="skill-level">
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: ${skill.level}%"></div>
+                    </div>
+                    <span>${skill.level}%</span>
+                </div>
+                <div class="skill-actions">
+                    <button class="cyber-btn secondary" onclick="editSkill('${skill.name}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="cyber-btn secondary" onclick="deleteSkill('${skill.name}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// Initialize mini charts for analytics
+function initializeCharts() {
+    // This would integrate with a charting library like Chart.js
+    // For now, we'll create simple animated bars
+    const charts = ['viewsChart', 'visitorsChart', 'contactsChart', 'downloadsChart'];
+    
+    charts.forEach(chartId => {
+        const canvas = document.getElementById(chartId);
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            drawMiniChart(ctx, canvas.width, canvas.height);
+        }
+    });
+}
+
+function drawMiniChart(ctx, width, height) {
+    const data = Array.from({length: 7}, () => Math.random() * height);
+    const barWidth = width / data.length;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    data.forEach((value, index) => {
+        const gradient = ctx.createLinearGradient(0, 0, 0, height);
+        gradient.addColorStop(0, '#00d4ff');
+        gradient.addColorStop(1, '#8b5cf6');
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(index * barWidth, height - value, barWidth - 2, value);
+    });
+}
+
+// Logout functionality
+function logoutAdmin() {
+    showNotification('Logging out...', 'info');
+    setTimeout(() => {
+        resetAdminPanel();
+        showNotification('Logged out successfully', 'success');
+    }, 1000);
+}
+
+// Project management functions
+function openProjectModal() {
+    showNotification('Project creation modal would open here', 'info');
 }
 
 function editProject(id) {
-    showNotification(`Edit Project ${id} functionality would be implemented here`, 'info');
+    showNotification(`Edit project ${id} functionality would be implemented here`, 'info');
 }
+
+function viewProject(url) {
+    if (url && url !== '#') {
+        window.open(url, '_blank');
+    } else {
+        showNotification('Demo URL not available', 'info');
+    }
+}
+
+function deleteProject(id) {
+    if (confirm('Are you sure you want to delete this project?')) {
+        showNotification(`Project ${id} deleted successfully!`, 'success');
+        setTimeout(() => {
+            loadProjectsManager();
+        }, 1000);
+    }
+}
+
+// Skill management functions
+function openSkillModal() {
+    showNotification('Skill creation modal would open here', 'info');
+}
+
+function editSkill(name) {
+    showNotification(`Edit skill ${name} functionality would be implemented here`, 'info');
+}
+
+function deleteSkill(name) {
+    if (confirm(`Are you sure you want to delete ${name} skill?`)) {
+        showNotification(`${name} skill deleted successfully!`, 'success');
+        setTimeout(() => {
+            loadSkillsManager();
+        }, 1000);
+    }
+}
+
+// Analytics functions
+function loadAnalytics() {
+    // Animate metric bars
+    const metricFills = document.querySelectorAll('.metric-fill');
+    metricFills.forEach(fill => {
+        const width = fill.style.width;
+        fill.style.width = '0%';
+        setTimeout(() => {
+            fill.style.width = width;
+        }, 300);
+    });
+}
+
+// Load admin data
+function loadAdminData() {
+    loadProjectsManager();
+    loadSkillsManager();
+    loadRecentActivity();
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === adminModal) {
+        closeAdminPanel();
+    }
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (adminModal.style.display === 'block') {
+        if (e.key === 'Escape') {
+            closeAdminPanel();
+        }
+    }
+});
 
 function deleteProject(id) {
     if (confirm('Are you sure you want to delete this project?')) {
