@@ -1,0 +1,40 @@
+# Vercel ignore file for portfolio deployment
+
+# Development files
+node_modules/
+.git/
+.vscode/
+
+# Documentation (not needed for deployment)
+docs/
+PORTFOLIO_FEATURES.md
+
+# Config files (not needed for deployment)
+config/
+.eslintrc.js
+.prettierrc.js
+
+# Build artifacts
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
