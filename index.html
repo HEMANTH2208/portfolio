@@ -591,72 +591,147 @@
         </div>
     </footer>
 
-            <!-- Professional Admin Panel -->
-            <div class="simple-admin-panel" id="adminPanel" style="display: none;">
-                <div class="admin-card">
-                    <div class="admin-header">
-                        <h2>Quick Edit</h2>
-                        <button class="close-btn" onclick="closeAdminPanel()">×</button>
+            <!-- Modern Sidebar Admin Panel -->
+            <div class="admin-sidebar-panel" id="adminPanel" style="display: none;">
+                <div class="admin-sidebar">
+                    <div class="admin-sidebar-header">
+                        <div class="admin-logo">
+                            <i class="fas fa-cog"></i>
+                            <span>Admin</span>
+                        </div>
+                        <button class="admin-close-btn" onclick="closeAdminPanel()">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                     
-                    <div class="admin-tabs">
-                        <button class="tab-btn active" onclick="switchAdminTab('profile')">Profile</button>
-                        <button class="tab-btn" onclick="switchAdminTab('projects')">Projects</button>
-                        <button class="tab-btn" onclick="switchAdminTab('certificates')">Certificates</button>
+                    <div class="admin-nav-menu">
+                        <div class="nav-item active" onclick="switchAdminTab('profile', this)">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </div>
+                        <div class="nav-item" onclick="switchAdminTab('projects', this)">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Projects</span>
+                        </div>
+                        <div class="nav-item" onclick="switchAdminTab('certificates', this)">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certificates</span>
+                        </div>
                     </div>
                     
-                    <div class="admin-content">
+                    <div class="admin-content-area">
                         <!-- Profile Tab -->
-                        <div id="profileAdminTab" class="admin-tab active">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" id="quickName" value="Hemanth B" placeholder="Your name">
+                        <div id="profileAdminTab" class="admin-content-tab active">
+                            <div class="tab-header">
+                                <h3><i class="fas fa-user-edit"></i> Profile Settings</h3>
                             </div>
-                            <div class="form-group">
-                                <label>Title</label>
-                                <input type="text" id="quickTitle" value="Aspiring Data Scientist" placeholder="Your title">
+                            <div class="form-container">
+                                <div class="input-row">
+                                    <label>Full Name</label>
+                                    <input type="text" id="quickName" value="Hemanth B" placeholder="Your name">
+                                </div>
+                                <div class="input-row">
+                                    <label>Professional Title</label>
+                                    <input type="text" id="quickTitle" value="Aspiring Data Scientist" placeholder="Your title">
+                                </div>
+                                <div class="input-row">
+                                    <label>Email Address</label>
+                                    <input type="email" id="quickEmail" value="bhemanth2221@gmail.com" placeholder="Your email">
+                                </div>
+                                <button class="action-btn primary" onclick="saveProfile()">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="quickEmail" value="bhemanth2221@gmail.com" placeholder="Your email">
-                            </div>
-                            <button class="save-btn" onclick="saveProfile()">Save Changes</button>
                         </div>
                         
                         <!-- Projects Tab -->
-                        <div id="projectsAdminTab" class="admin-tab">
-                            <div class="quick-add">
-                                <input type="text" id="projectName" placeholder="Project name">
-                                <input type="url" id="projectUrl" placeholder="GitHub URL">
-                                <button class="add-btn" onclick="addProject()">Add Project</button>
+                        <div id="projectsAdminTab" class="admin-content-tab">
+                            <div class="tab-header">
+                                <h3><i class="fas fa-plus-circle"></i> Manage Projects</h3>
                             </div>
-                            <div id="projectsList" class="items-list">
-                                <div class="item">
-                                    <span>OutPass Pro</span>
-                                    <button onclick="removeItem(this)">Remove</button>
+                            <div class="add-section">
+                                <div class="add-form">
+                                    <input type="text" id="projectName" placeholder="Project name" class="add-input">
+                                    <input type="url" id="projectUrl" placeholder="GitHub URL" class="add-input">
+                                    <button class="action-btn secondary" onclick="addProject()">
+                                        <i class="fas fa-plus"></i> Add
+                                    </button>
                                 </div>
-                                <div class="item">
-                                    <span>LinkedIn Automation</span>
-                                    <button onclick="removeItem(this)">Remove</button>
+                            </div>
+                            <div class="items-container" id="projectsList">
+                                <div class="list-item">
+                                    <div class="item-content">
+                                        <div class="item-title">OutPass Pro</div>
+                                        <div class="item-subtitle">Student management system</div>
+                                    </div>
+                                    <div class="item-actions">
+                                        <button class="icon-btn" onclick="editProject(this)" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon-btn delete" onclick="removeItem(this)" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="item-content">
+                                        <div class="item-title">LinkedIn Automation</div>
+                                        <div class="item-subtitle">AI-powered automation</div>
+                                    </div>
+                                    <div class="item-actions">
+                                        <button class="icon-btn" onclick="editProject(this)" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon-btn delete" onclick="removeItem(this)" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         <!-- Certificates Tab -->
-                        <div id="certificatesAdminTab" class="admin-tab">
-                            <div class="quick-add">
-                                <input type="text" id="certName" placeholder="Certificate name">
-                                <input type="text" id="certIssuer" placeholder="Issuer">
-                                <button class="add-btn" onclick="addCertificate()">Add Certificate</button>
+                        <div id="certificatesAdminTab" class="admin-content-tab">
+                            <div class="tab-header">
+                                <h3><i class="fas fa-award"></i> Manage Certificates</h3>
                             </div>
-                            <div id="certificatesList" class="items-list">
-                                <div class="item">
-                                    <span>HACKFINITY 2025</span>
-                                    <button onclick="removeItem(this)">Remove</button>
+                            <div class="add-section">
+                                <div class="add-form">
+                                    <input type="text" id="certName" placeholder="Certificate name" class="add-input">
+                                    <input type="text" id="certIssuer" placeholder="Issuing organization" class="add-input">
+                                    <button class="action-btn secondary" onclick="addCertificate()">
+                                        <i class="fas fa-plus"></i> Add
+                                    </button>
                                 </div>
-                                <div class="item">
-                                    <span>Design Thinking</span>
-                                    <button onclick="removeItem(this)">Remove</button>
+                            </div>
+                            <div class="items-container" id="certificatesList">
+                                <div class="list-item">
+                                    <div class="item-content">
+                                        <div class="item-title">HACKFINITY 2025</div>
+                                        <div class="item-subtitle">SIMATS Engineering College</div>
+                                    </div>
+                                    <div class="item-actions">
+                                        <button class="icon-btn" onclick="editCertificate(this)" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon-btn delete" onclick="removeItem(this)" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="item-content">
+                                        <div class="item-title">Design Thinking</div>
+                                        <div class="item-subtitle">NPTEL</div>
+                                    </div>
+                                    <div class="item-actions">
+                                        <button class="icon-btn" onclick="editCertificate(this)" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon-btn delete" onclick="removeItem(this)" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
