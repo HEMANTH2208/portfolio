@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://hemanth2208.github.io/portfolio/sitemap.xml
+
+# Disallow admin panel from search engines
+Disallow: /admin
+Disallow: /assets/js/admin.js
+
+# Allow all assets
+Allow: /assets/css/
+Allow: /assets/js/script.js
+Allow: /assets/images/
+Allow: /assets/fonts/
+
+# Crawl delay
+Crawl-delay: 1

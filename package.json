@@ -1,16 +1,19 @@
 {
   "name": "hemanth-portfolio",
-  "version": "1.0.0",
-  "description": "Professional portfolio website for Hemanth B - Aspiring Data Scientist",
+  "version": "2.0.0",
+  "description": "Professional portfolio website for Hemanth B - Aspiring Data Scientist with advanced admin panel",
   "main": "index.html",
-  "scripts": {
-    "start": "npx serve .",
-    "dev": "npx live-server .",
-    "build": "echo 'No build process needed for static site'",
-    "deploy": "gh-pages -d .",
-    "lint": "eslint script.js",
-    "format": "prettier --write *.html *.css *.js"
+  "homepage": "https://hemanth2208.github.io/portfolio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HEMANTH2208/portfolio.git"
   },
+  "author": {
+    "name": "Hemanth B",
+    "email": "bhemanth2221@gmail.com",
+    "url": "https://linkedin.com/in/hemanthb22"
+  },
+  "license": "MIT",
   "keywords": [
     "portfolio",
     "data-science",
@@ -18,34 +21,58 @@
     "machine-learning",
     "web-development",
     "responsive",
-    "animated"
+    "animated",
+    "admin-panel",
+    "cyberpunk",
+    "professional"
   ],
-  "author": {
-    "name": "Hemanth B",
-    "email": "bhemanth2221@gmail.com",
-    "url": "https://linkedin.com/in/hemanthb22"
+  "scripts": {
+    "start": "npx serve . -p 3000",
+    "dev": "npx live-server . --port=3000 --open=/",
+    "build": "npm run minify && npm run optimize",
+    "deploy": "npm run build && gh-pages -d .",
+    "deploy:github": "gh-pages -d .",
+    "minify": "npm run minify:css && npm run minify:js",
+    "minify:css": "cleancss -o assets/css/styles.min.css assets/css/styles.css",
+    "minify:js": "uglifyjs assets/js/script.js assets/js/admin.js -o assets/js/bundle.min.js",
+    "optimize": "npm run optimize:images",
+    "optimize:images": "imagemin assets/images/* --out-dir=assets/images/optimized",
+    "lint": "eslint assets/js/*.js",
+    "lint:fix": "eslint assets/js/*.js --fix",
+    "format": "prettier --write \"**/*.{html,css,js,json,md}\"",
+    "test": "echo 'No tests specified' && exit 0",
+    "validate": "html-validate index.html",
+    "lighthouse": "lighthouse http://localhost:3000 --output=html --output-path=./docs/lighthouse-report.html",
+    "analyze": "npm run lighthouse && npm run validate"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/HEMANTH2208/portfolio.git"
-  },
-  "bugs": {
-    "url": "https://github.com/HEMANTH2208/portfolio/issues"
-  },
-  "homepage": "https://hemanth2208.github.io/portfolio",
   "devDependencies": {
-    "eslint": "^8.0.0",
-    "prettier": "^2.0.0",
+    "clean-css-cli": "^5.6.2",
+    "eslint": "^8.57.0",
+    "gh-pages": "^6.1.1",
+    "html-validate": "^8.7.4",
+    "imagemin": "^8.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "lighthouse": "^11.4.0",
     "live-server": "^1.2.2",
-    "gh-pages": "^4.0.0"
+    "prettier": "^3.1.1",
+    "serve": "^14.2.1",
+    "uglify-js": "^3.17.4"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not dead"
+    "not dead",
+    "not ie 11"
   ],
   "engines": {
-    "node": ">=14.0.0"
-  }
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "files": [
+    "index.html",
+    "assets/",
+    "docs/",
+    "config/"
+  ]
 }

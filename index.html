@@ -3,10 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional portfolio of Hemanth B - Aspiring Data Scientist, AI & ML Enthusiast, Fellow at NxtWave's CCBP 4.0 Academy">
+    <meta name="keywords" content="Hemanth B, Data Scientist, AI, Machine Learning, Python, Portfolio, NxtWave, CCBP">
+    <meta name="author" content="Hemanth B">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Hemanth B - Data Scientist Portfolio">
+    <meta property="og:description" content="Professional portfolio showcasing projects in AI, Machine Learning, and Data Science">
+    <meta property="og:image" content="https://hemanth2208.github.io/portfolio/assets/images/og-image.png">
+    <meta property="og:url" content="https://hemanth2208.github.io/portfolio">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Hemanth B Portfolio">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hemanth B - Data Scientist Portfolio">
+    <meta name="twitter:description" content="Professional portfolio showcasing projects in AI, Machine Learning, and Data Science">
+    <meta name="twitter:image" content="https://hemanth2208.github.io/portfolio/assets/images/twitter-card.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00d4ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hemanth Portfolio">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
     <title>Hemanth B - Data Scientist Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Hemanth B",
+        "jobTitle": "Aspiring Data Scientist",
+        "description": "Fellow at NxtWave's CCBP 4.0 Academy, passionate about AI, Machine Learning, and Data Science",
+        "url": "https://hemanth2208.github.io/portfolio",
+        "sameAs": [
+            "https://linkedin.com/in/hemanthb22",
+            "https://github.com/HEMANTH2208"
+        ],
+        "email": "bhemanth2221@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sriperumbudur",
+            "addressRegion": "Chennai",
+            "postalCode": "602105",
+            "addressCountry": "IN"
+        },
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Sri Sairam Engineering College"
+        },
+        "knowsAbout": ["Data Science", "Artificial Intelligence", "Machine Learning", "Python", "SQL"]
+    }
+    </script>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -32,6 +102,21 @@
         </div>
         <p>Initializing Portfolio...</p>
     </div>
+
+    <!-- Advanced Background Elements -->
+    <div class="liquid-bg"></div>
+    <div class="neural-network" id="neuralNetwork"></div>
+    <div class="quantum-dots" id="quantumDots"></div>
+    <div class="dna-helix">
+        <div class="dna-strand"></div>
+        <div class="dna-strand"></div>
+        <div class="dna-base" style="top: 10%;"></div>
+        <div class="dna-base" style="top: 30%;"></div>
+        <div class="dna-base" style="top: 50%;"></div>
+        <div class="dna-base" style="top: 70%;"></div>
+        <div class="dna-base" style="top: 90%;"></div>
+    </div>
+    <div class="morphing-shape"></div>
 
     <!-- Floating Orbs Background -->
     <div class="floating-orbs">
@@ -193,20 +278,31 @@
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" onclick="openProject('outpass-pro')" data-project="outpass-pro">
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                                <button class="project-link" onclick="event.stopPropagation(); viewProjectDemo('outpass-pro')"><i class="fas fa-external-link-alt"></i></button>
+                                <button class="project-link" onclick="event.stopPropagation(); viewProjectCode('outpass-pro')"><i class="fab fa-github"></i></button>
                             </div>
                         </div>
                         <div class="project-placeholder">
                             <i class="fas fa-qrcode"></i>
                         </div>
+                        <div class="project-tech-overlay">
+                            <div class="tech-icons">
+                                <i class="fab fa-python" title="Python"></i>
+                                <i class="fas fa-database" title="Database"></i>
+                                <i class="fas fa-fire" title="Firebase"></i>
+                                <i class="fas fa-sms" title="SMS API"></i>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-content">
-                        <h3>OutPass Pro</h3>
+                        <div class="project-header">
+                            <h3>OutPass Pro</h3>
+                            <div class="project-status completed">Completed</div>
+                        </div>
                         <p>A comprehensive web-based student outpass management system built with Python Flask, featuring QR code scanning, automated SMS notifications, and multi-level authentication.</p>
                         <div class="project-tech">
                             <span class="tech-tag">Python Flask</span>
@@ -214,28 +310,60 @@
                             <span class="tech-tag">Firebase</span>
                             <span class="tech-tag">Twilio</span>
                         </div>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.8/5</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>500+ Users</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="project-card">
+                <div class="project-card" onclick="openProject('linkedin-automation')" data-project="linkedin-automation">
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="https://www.linkedin.com/posts/hemanthb22_nxtwave-ccbp4academy-fullstackdevelopment-activity-7353095776916439041-kszJ" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <button class="project-link" onclick="event.stopPropagation(); viewProjectDemo('linkedin-automation')"><i class="fas fa-external-link-alt"></i></button>
+                                <button class="project-link" onclick="event.stopPropagation(); viewProjectCode('linkedin-automation')"><i class="fab fa-github"></i></button>
                             </div>
                         </div>
                         <div class="project-placeholder">
                             <i class="fas fa-robot"></i>
                         </div>
+                        <div class="project-tech-overlay">
+                            <div class="tech-icons">
+                                <i class="fas fa-brain" title="AI/ML"></i>
+                                <i class="fas fa-cogs" title="Automation"></i>
+                                <i class="fab fa-linkedin" title="LinkedIn API"></i>
+                                <i class="fas fa-magic" title="AI Tools"></i>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-content">
-                        <h3>LinkedIn Automation</h3>
+                        <div class="project-header">
+                            <h3>LinkedIn Automation</h3>
+                            <div class="project-status active">Active</div>
+                        </div>
                         <p>Automated LinkedIn post generation system using MCP and Cursor AI for streamlined content creation with zero manual input.</p>
                         <div class="project-tech">
                             <span class="tech-tag">AI/ML</span>
                             <span class="tech-tag">Automation</span>
                             <span class="tech-tag">MCP</span>
                             <span class="tech-tag">Cursor AI</span>
+                        </div>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <i class="fas fa-chart-line"></i>
+                                <span>300% Efficiency</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>24/7 Active</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -324,25 +452,61 @@
             <div class="certifications">
                 <h3>Certifications</h3>
                 <div class="cert-grid">
-                    <div class="cert-item">
-                        <i class="fas fa-certificate"></i>
-                        <h4>HACKFINITY</h4>
-                        <p>SIMATS Engineering College</p>
+                    <div class="cert-item" onclick="openCertificate('hackfinity')" data-cert="hackfinity">
+                        <div class="cert-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="cert-content">
+                            <h4>HACKFINITY 2025</h4>
+                            <p>SIMATS Engineering College</p>
+                            <span class="cert-date">2025</span>
+                        </div>
+                        <div class="cert-overlay">
+                            <i class="fas fa-eye"></i>
+                            <span>View Certificate</span>
+                        </div>
                     </div>
-                    <div class="cert-item">
-                        <i class="fas fa-certificate"></i>
-                        <h4>Design Thinking A Primer</h4>
-                        <p>NPTEL</p>
+                    <div class="cert-item" onclick="openCertificate('design-thinking')" data-cert="design-thinking">
+                        <div class="cert-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="cert-content">
+                            <h4>Design Thinking A Primer</h4>
+                            <p>NPTEL</p>
+                            <span class="cert-date">2024</span>
+                        </div>
+                        <div class="cert-overlay">
+                            <i class="fas fa-eye"></i>
+                            <span>View Certificate</span>
+                        </div>
                     </div>
-                    <div class="cert-item">
-                        <i class="fas fa-certificate"></i>
-                        <h4>Microsoft Digital Productivity</h4>
-                        <p>NSDC</p>
+                    <div class="cert-item" onclick="openCertificate('microsoft-productivity')" data-cert="microsoft-productivity">
+                        <div class="cert-icon">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <div class="cert-content">
+                            <h4>Microsoft Digital Productivity</h4>
+                            <p>NSDC</p>
+                            <span class="cert-date">2024</span>
+                        </div>
+                        <div class="cert-overlay">
+                            <i class="fas fa-eye"></i>
+                            <span>View Certificate</span>
+                        </div>
                     </div>
-                    <div class="cert-item">
-                        <i class="fas fa-certificate"></i>
-                        <h4>IEEEXtreme</h4>
-                        <p>IEEE</p>
+                    <div class="cert-item" onclick="openCertificate('ieee-xtreme')" data-cert="ieee-xtreme">
+                        <div class="cert-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="cert-content">
+                            <h4>IEEEXtreme Programming</h4>
+                            <p>IEEE</p>
+                            <span class="cert-date">2024</span>
+                        </div>
+                        <div class="cert-overlay">
+                            <i class="fas fa-eye"></i>
+                            <span>View Certificate</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -517,6 +681,11 @@
                         <div class="nav-item" data-tab="skills">
                             <i class="fas fa-cogs"></i>
                             <span>Skills</span>
+                            <div class="nav-indicator"></div>
+                        </div>
+                        <div class="nav-item" data-tab="certificates">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certificates</span>
                             <div class="nav-indicator"></div>
                         </div>
                         <div class="nav-item" data-tab="analytics">
@@ -734,6 +903,21 @@
                         </div>
                     </div>
                     
+                    <!-- Certificates Tab -->
+                    <div id="certificatesTab" class="tab-panel">
+                        <div class="panel-header">
+                            <h2>Certificate Management</h2>
+                            <button class="cyber-btn primary" onclick="openCertificateManager()">
+                                <i class="fas fa-plus"></i>
+                                <span>ADD CERTIFICATE</span>
+                            </button>
+                        </div>
+                        
+                        <div class="certificates-manager" id="certificatesList">
+                            <!-- Certificates will be loaded here -->
+                        </div>
+                    </div>
+                    
                     <!-- Analytics Tab -->
                     <div id="analyticsTab" class="tab-panel">
                         <div class="panel-header">
@@ -867,7 +1051,106 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script src="admin.js"></script>
+    <!-- Certificate Modal -->
+    <div id="certificateModal" class="certificate-modal">
+        <div class="certificate-container">
+            <div class="certificate-header">
+                <h2 id="certificateTitle">Certificate</h2>
+                <button class="close-certificate" onclick="closeCertificateModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="certificate-content">
+                <div class="certificate-viewer" id="certificateViewer">
+                    <div class="certificate-placeholder">
+                        <i class="fas fa-certificate"></i>
+                        <p>Certificate will be displayed here</p>
+                        <small>Supported formats: PDF, JPG, PNG, or external links</small>
+                    </div>
+                </div>
+                <div class="certificate-info">
+                    <div class="cert-details">
+                        <h3 id="certName">Certificate Name</h3>
+                        <p id="certIssuer">Issuing Organization</p>
+                        <span id="certDate">Date</span>
+                    </div>
+                    <div class="cert-actions">
+                        <button class="cyber-btn primary" onclick="downloadCertificate()">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </button>
+                        <button class="cyber-btn secondary" onclick="shareCertificate()">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="project-modal">
+        <div class="project-container">
+            <div class="project-header">
+                <div class="project-title-section">
+                    <h2 id="projectTitle">Project Details</h2>
+                    <div class="project-status-badge" id="projectStatusBadge">Active</div>
+                </div>
+                <button class="close-project" onclick="closeProjectModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="project-content-modal">
+                <div class="project-gallery">
+                    <div class="project-main-image" id="projectMainImage">
+                        <div class="project-placeholder-large">
+                            <i class="fas fa-image"></i>
+                            <p>Project Screenshot</p>
+                        </div>
+                    </div>
+                    <div class="project-thumbnails" id="projectThumbnails">
+                        <!-- Thumbnails will be loaded here -->
+                    </div>
+                </div>
+                <div class="project-details">
+                    <div class="project-description">
+                        <h3>Description</h3>
+                        <p id="projectDescription">Project description will be loaded here...</p>
+                    </div>
+                    <div class="project-technologies">
+                        <h3>Technologies Used</h3>
+                        <div class="tech-stack" id="projectTechStack">
+                            <!-- Tech stack will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="project-features">
+                        <h3>Key Features</h3>
+                        <ul id="projectFeatures">
+                            <!-- Features will be loaded here -->
+                        </ul>
+                    </div>
+                    <div class="project-links-section">
+                        <h3>Project Links</h3>
+                        <div class="project-buttons">
+                            <button class="cyber-btn primary" id="projectDemoBtn" onclick="openProjectDemo()">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Live Demo</span>
+                            </button>
+                            <button class="cyber-btn secondary" id="projectCodeBtn" onclick="openProjectCode()">
+                                <i class="fab fa-github"></i>
+                                <span>Source Code</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/certificates.js"></script>
+    <script src="assets/js/projects.js"></script>
 </body>
 </html>

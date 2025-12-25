@@ -1,0 +1,46 @@
+{
+  "hackfinity": {
+    "name": "HACKFINITY 2025",
+    "issuer": "SIMATS Engineering College",
+    "date": "2025",
+    "type": "Competition",
+    "description": "Participated in competitive hackathon, developing innovative solutions under time constraints.",
+    "file": "assets/images/certificates/hackfinity-2025.pdf",
+    "link": null,
+    "icon": "fas fa-trophy",
+    "color": "#FFD700"
+  },
+  "design-thinking": {
+    "name": "Design Thinking A Primer",
+    "issuer": "NPTEL",
+    "date": "2024",
+    "type": "Course",
+    "description": "Comprehensive course on design thinking principles and methodologies.",
+    "file": "assets/images/certificates/design-thinking-nptel.pdf",
+    "link": null,
+    "icon": "fas fa-lightbulb",
+    "color": "#00d4ff"
+  },
+  "microsoft-productivity": {
+    "name": "Microsoft Digital Productivity",
+    "issuer": "NSDC",
+    "date": "2024",
+    "type": "Certification",
+    "description": "Digital productivity tools and techniques certification.",
+    "file": "assets/images/certificates/microsoft-productivity-nsdc.pdf",
+    "link": null,
+    "icon": "fab fa-microsoft",
+    "color": "#0078d4"
+  },
+  "ieee-xtreme": {
+    "name": "IEEEXtreme Programming",
+    "issuer": "IEEE",
+    "date": "2024",
+    "type": "Competition",
+    "description": "Global programming competition organized by IEEE.",
+    "file": "assets/images/certificates/ieee-xtreme.pdf",
+    "link": null,
+    "icon": "fas fa-code",
+    "color": "#8b5cf6"
+  }
+}

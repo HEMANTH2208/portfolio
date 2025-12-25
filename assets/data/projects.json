@@ -1,0 +1,65 @@
+{
+  "outpass-pro": {
+    "name": "OutPass Pro",
+    "description": "A comprehensive web-based student outpass management system built with Python Flask, featuring QR code scanning, automated SMS notifications, and multi-level authentication.",
+    "longDescription": "OutPass Pro revolutionizes student outpass management with cutting-edge technology. The system features real-time QR code scanning for entry/exit tracking, automated SMS notifications to parents, multi-level user authentication, and comprehensive reporting. Built with scalability in mind, it handles thousands of students efficiently while maintaining security and user experience.",
+    "technologies": ["Python Flask", "SQLite/PostgreSQL", "Firebase", "Twilio"],
+    "features": [
+      "QR Code scanning for real-time tracking",
+      "Automated SMS notifications to parents",
+      "Multi-level user authentication system",
+      "Comprehensive reporting and analytics",
+      "Mobile-responsive design",
+      "Real-time database synchronization",
+      "Secure API endpoints",
+      "Admin dashboard for management"
+    ],
+    "status": "completed",
+    "demoUrl": null,
+    "codeUrl": "https://github.com/HEMANTH2208/outpass-pro",
+    "images": [
+      "assets/images/projects/outpass-pro-1.jpg",
+      "assets/images/projects/outpass-pro-2.jpg",
+      "assets/images/projects/outpass-pro-3.jpg"
+    ],
+    "stats": {
+      "rating": "4.8/5",
+      "users": "500+ Users",
+      "performance": "99.9% Uptime"
+    },
+    "icon": "fas fa-qrcode",
+    "color": "#00d4ff",
+    "category": "Web Application"
+  },
+  "linkedin-automation": {
+    "name": "LinkedIn Automation",
+    "description": "Automated LinkedIn post generation system using MCP and Cursor AI for streamlined content creation with zero manual input.",
+    "longDescription": "This innovative automation system leverages the power of MCP (Model Context Protocol) and Cursor AI to create engaging LinkedIn content automatically. The system analyzes trends, generates relevant posts, schedules content, and maintains consistent engagement across professional networks. It represents the future of social media automation with AI-driven content creation.",
+    "technologies": ["AI/ML", "Automation", "MCP", "Cursor AI"],
+    "features": [
+      "AI-powered content generation",
+      "Trend analysis and topic suggestion",
+      "Automated post scheduling",
+      "Engagement tracking and analytics",
+      "Multi-account management",
+      "Content optimization algorithms",
+      "Real-time performance monitoring",
+      "Custom content templates"
+    ],
+    "status": "active",
+    "demoUrl": "https://www.linkedin.com/posts/hemanthb22_nxtwave-ccbp4academy-fullstackdevelopment-activity-7353095776916439041-kszJ",
+    "codeUrl": "https://github.com/HEMANTH2208/linkedin-automation",
+    "images": [
+      "assets/images/projects/linkedin-automation-1.jpg",
+      "assets/images/projects/linkedin-automation-2.jpg"
+    ],
+    "stats": {
+      "efficiency": "300% Efficiency",
+      "status": "24/7 Active",
+      "engagement": "150% Increase"
+    },
+    "icon": "fas fa-robot",
+    "color": "#8b5cf6",
+    "category": "AI/Automation"
+  }
+}

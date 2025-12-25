@@ -36,11 +36,19 @@ function initializePageAnimations() {
         }
     });
     
-    // Initialize particle system
+    // Initialize advanced particle systems
     createAdvancedParticleSystem();
+    createNeuralNetwork();
+    createQuantumDots();
     
     // Initialize scroll-triggered animations
     initializeScrollAnimations();
+    
+    // Initialize custom cursor
+    initializeCustomCursor();
+    
+    // Initialize magnetic effects
+    initializeMagneticEffects();
 }
 
 // Enhanced Navigation with smooth transitions
@@ -564,5 +572,414 @@ if ('performance' in window) {
             const perfData = performance.getEntriesByType('navigation')[0];
             console.log(`Page loaded in ${Math.round(perfData.loadEventEnd - perfData.fetchStart)}ms`);
         }, 0);
+    });
+}
+// Advanced Neural Network Animation
+function createNeuralNetwork() {
+    const container = document.getElementById('neuralNetwork');
+    if (!container) return;
+    
+    const nodes = [];
+    const connections = [];
+    
+    // Create nodes
+    for (let i = 0; i < 20; i++) {
+        const node = document.createElement('div');
+        node.className = 'neural-node';
+        node.style.left = Math.random() * 100 + '%';
+        node.style.top = Math.random() * 100 + '%';
+        node.style.animationDelay = Math.random() * 3 + 's';
+        container.appendChild(node);
+        nodes.push(node);
+    }
+    
+    // Create connections between nearby nodes
+    nodes.forEach((node, index) => {
+        const nodeRect = node.getBoundingClientRect();
+        nodes.forEach((otherNode, otherIndex) => {
+            if (index !== otherIndex) {
+                const otherRect = otherNode.getBoundingClientRect();
+                const distance = Math.sqrt(
+                    Math.pow(nodeRect.left - otherRect.left, 2) + 
+                    Math.pow(nodeRect.top - otherRect.top, 2)
+                );
+                
+                if (distance < 200) {
+                    const connection = document.createElement('div');
+                    connection.className = 'neural-connection';
+                    connection.style.left = nodeRect.left + 'px';
+                    connection.style.top = nodeRect.top + 'px';
+                    connection.style.width = distance + 'px';
+                    connection.style.transform = `rotate(${Math.atan2(
+                        otherRect.top - nodeRect.top,
+                        otherRect.left - nodeRect.left
+                    )}rad)`;
+                    connection.style.animationDelay = Math.random() * 4 + 's';
+                    container.appendChild(connection);
+                }
+            }
+        });
+    });
+}
+
+// Quantum Dots Animation
+function createQuantumDots() {
+    const container = document.getElementById('quantumDots');
+    if (!container) return;
+    
+    for (let i = 0; i < 50; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'quantum-dot';
+        dot.style.left = Math.random() * 100 + '%';
+        dot.style.top = Math.random() * 100 + '%';
+        dot.style.animationDelay = Math.random() * 8 + 's';
+        dot.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        container.appendChild(dot);
+    }
+}
+
+// Custom Cursor Effect
+function initializeCustomCursor() {
+    if (window.innerWidth < 768) return; // Skip on mobile
+    
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor-dot';
+    document.body.appendChild(cursor);
+    
+    const cursorOutline = document.createElement('div');
+    cursorOutline.className = 'cursor-outline';
+    document.body.appendChild(cursorOutline);
+    
+    let mouseX = 0, mouseY = 0;
+    let outlineX = 0, outlineY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+    });
+    
+    // Smooth follow for outline
+    function animateOutline() {
+        outlineX += (mouseX - outlineX) * 0.1;
+        outlineY += (mouseY - outlineY) * 0.1;
+        
+        cursorOutline.style.left = outlineX - 20 + 'px';
+        cursorOutline.style.top = outlineY - 20 + 'px';
+        
+        requestAnimationFrame(animateOutline);
+    }
+    animateOutline();
+    
+    // Hover effects
+    document.querySelectorAll('a, button, .project-card, .cert-item').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'scale(2)';
+            cursorOutline.style.transform = 'scale(1.5)';
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'scale(1)';
+            cursorOutline.style.transform = 'scale(1)';
+        });
+    });
+}
+
+// Magnetic Effects
+function initializeMagneticEffects() {
+    const magneticElements = document.querySelectorAll('.btn, .project-card, .cert-item');
+    
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            const strength = 0.3;
+            el.style.transform = `translate(${x * strength}px, ${y * strength}px) scale(1.02)`;
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = 'translate(0px, 0px) scale(1)';
+        });
+    });
+}
+
+// Particle Explosion Effect
+function createParticleExplosion(x, y, color = '#00d4ff') {
+    const particleCount = 15;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.background = color;
+        
+        const angle = (i / particleCount) * Math.PI * 2;
+        const velocity = Math.random() * 100 + 50;
+        const dx = Math.cos(angle) * velocity;
+        const dy = Math.sin(angle) * velocity;
+        
+        particle.style.setProperty('--dx', dx + 'px');
+        particle.style.setProperty('--dy', dy + 'px');
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+            particle.remove();
+        }, 1000);
+    }
+}
+
+// Enhanced Intersection Observer
+function initializeAdvancedScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                
+                // Add appropriate animation class
+                if (element.classList.contains('fade-in-up')) {
+                    element.classList.add('visible');
+                } else if (element.classList.contains('fade-in-left')) {
+                    element.classList.add('visible');
+                } else if (element.classList.contains('fade-in-right')) {
+                    element.classList.add('visible');
+                } else if (element.classList.contains('stagger-animation')) {
+                    element.classList.add('visible');
+                }
+                
+                // Special effects for specific elements
+                if (element.classList.contains('project-card')) {
+                    setTimeout(() => {
+                        element.classList.add('holographic-card');
+                    }, 300);
+                }
+                
+                if (element.classList.contains('cert-item')) {
+                    setTimeout(() => {
+                        element.classList.add('advanced-hover');
+                    }, 200);
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements
+    document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .stagger-animation').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// Text Reveal Animation
+function initializeTextReveal() {
+    const textElements = document.querySelectorAll('.section-title, .hero-title');
+    
+    textElements.forEach((el, index) => {
+        setTimeout(() => {
+            el.classList.add('text-reveal');
+        }, index * 200);
+    });
+}
+
+// Advanced Loading States
+function showAdvancedLoading(element) {
+    element.classList.add('loading');
+    
+    setTimeout(() => {
+        element.classList.remove('loading');
+    }, 2000);
+}
+
+// Performance Monitoring
+function initializePerformanceMonitoring() {
+    if ('performance' in window) {
+        // Monitor FPS
+        let fps = 0;
+        let lastTime = performance.now();
+        
+        function measureFPS() {
+            const currentTime = performance.now();
+            fps = 1000 / (currentTime - lastTime);
+            lastTime = currentTime;
+            
+            // Reduce animations if FPS is low
+            if (fps < 30) {
+                document.body.classList.add('reduce-animations');
+            } else {
+                document.body.classList.remove('reduce-animations');
+            }
+            
+            requestAnimationFrame(measureFPS);
+        }
+        measureFPS();
+        
+        // Monitor memory usage
+        if (performance.memory) {
+            setInterval(() => {
+                const memoryUsage = performance.memory.usedJSHeapSize / performance.memory.jsHeapSizeLimit;
+                if (memoryUsage > 0.8) {
+                    console.warn('High memory usage detected');
+                    // Cleanup particles if memory is high
+                    document.querySelectorAll('.particle, .quantum-dot').forEach(el => {
+                        if (Math.random() > 0.5) el.remove();
+                    });
+                }
+            }, 5000);
+        }
+    }
+}
+
+// Accessibility Enhancements
+function initializeAccessibility() {
+    // Respect user's motion preferences
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.body.classList.add('reduce-motion');
+    }
+    
+    // High contrast mode
+    if (window.matchMedia('(prefers-contrast: high)').matches) {
+        document.body.classList.add('high-contrast');
+    }
+    
+    // Focus management
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-navigation');
+        }
+    });
+    
+    document.addEventListener('mousedown', () => {
+        document.body.classList.remove('keyboard-navigation');
+    });
+}
+
+// Advanced Scroll Effects
+function initializeAdvancedScrollEffects() {
+    let ticking = false;
+    
+    function updateScrollEffects() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        // Parallax backgrounds
+        const parallaxElements = document.querySelectorAll('.liquid-bg, .neural-network');
+        parallaxElements.forEach(el => {
+            el.style.transform = `translateY(${rate * 0.3}px)`;
+        });
+        
+        // Update floating orbs
+        updateFloatingOrbs(scrolled);
+        
+        // Update morphing shapes
+        const morphingShapes = document.querySelectorAll('.morphing-shape');
+        morphingShapes.forEach(shape => {
+            shape.style.transform = `translateY(${scrolled * 0.2}px) rotate(${scrolled * 0.1}deg)`;
+        });
+        
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateScrollEffects);
+            ticking = true;
+        }
+    });
+}
+
+// Initialize all advanced features
+document.addEventListener('DOMContentLoaded', function() {
+    // Add classes for animations
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.classList.add('fade-in-up', 'gpu-accelerated');
+    });
+    
+    document.querySelectorAll('.cert-item').forEach(cert => {
+        cert.classList.add('fade-in-up', 'gpu-accelerated');
+    });
+    
+    document.querySelectorAll('.skill-item').forEach(skill => {
+        skill.classList.add('fade-in-left');
+    });
+    
+    document.querySelectorAll('.timeline-item').forEach((item, index) => {
+        if (index % 2 === 0) {
+            item.classList.add('fade-in-left');
+        } else {
+            item.classList.add('fade-in-right');
+        }
+    });
+    
+    // Initialize all systems
+    setTimeout(() => {
+        initializeAdvancedScrollAnimations();
+        initializeTextReveal();
+        initializePerformanceMonitoring();
+        initializeAccessibility();
+        initializeAdvancedScrollEffects();
+    }, 1000);
+});
+
+// Add click effects
+document.addEventListener('click', (e) => {
+    if (e.target.matches('.btn, .project-card, .cert-item')) {
+        createParticleExplosion(e.clientX, e.clientY);
+    }
+});
+
+// Konami Code Easter Egg
+let konamiCode = [];
+const konamiSequence = [
+    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+    'KeyB', 'KeyA'
+];
+
+document.addEventListener('keydown', (e) => {
+    konamiCode.push(e.code);
+    
+    if (konamiCode.length > konamiSequence.length) {
+        konamiCode.shift();
+    }
+    
+    if (konamiCode.join(',') === konamiSequence.join(',')) {
+        // Easter egg activated!
+        document.body.classList.add('konami-mode');
+        showNotification('🎉 Konami Code Activated! Welcome to the Matrix!', 'success');
+        
+        // Add special effects
+        for (let i = 0; i < 100; i++) {
+            setTimeout(() => {
+                createParticleExplosion(
+                    Math.random() * window.innerWidth,
+                    Math.random() * window.innerHeight,
+                    ['#00d4ff', '#8b5cf6', '#f472b6', '#10b981'][Math.floor(Math.random() * 4)]
+                );
+            }, i * 50);
+        }
+        
+        konamiCode = [];
+    }
+});
+
+// Service Worker Registration for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
     });
 }

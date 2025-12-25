@@ -235,6 +235,9 @@ class AdminPanel {
                 case 'skills':
                     this.loadSkillsData();
                     break;
+                case 'certificates':
+                    this.loadCertificatesData();
+                    break;
                 case 'analytics':
                     this.loadAnalyticsData();
                     break;
@@ -516,9 +519,111 @@ class AdminPanel {
         }
     }
     
-    // Project management methods
+    loadCertificatesData() {
+        const certificates = certificateManager ? certificateManager.certificates : {};
+        const certificatesList = document.getElementById('certificatesList');
+        
+        if (certificatesList) {
+            certificatesList.innerHTML = Object.keys(certificates).map(certId => {
+                const cert = certificates[certId];
+                return `
+                    <div class="certificate-manager-card">
+                        <div class="cert-manager-icon">
+                            <i class="${cert.icon}"></i>
+                        </div>
+                        <div class="cert-manager-info">
+                            <h4>${cert.name}</h4>
+                            <p>${cert.issuer}</p>
+                            <small>${cert.type} • ${cert.date}</small>
+                        </div>
+                        <div class="cert-manager-actions">
+                            <button class="cyber-btn secondary" onclick="adminPanel.editCertificate('${certId}')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="cyber-btn secondary" onclick="adminPanel.viewCertificate('${certId}')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="cyber-btn secondary" onclick="adminPanel.deleteCertificate('${certId}')">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+    
+    // Certificate management methods
+    editCertificate(certId) {
+        const cert = certificateManager ? certificateManager.certificates[certId] : null;
+        if (!cert) {
+            this.showNotification('Certificate not found', 'error');
+            return;
+        }
+        
+        const newName = prompt('Certificate Name:', cert.name);
+        const newIssuer = prompt('Issuing Organization:', cert.issuer);
+        const newDate = prompt('Date:', cert.date);
+        const newFile = prompt('Certificate File URL (optional):', cert.file || '');
+        const newLink = prompt('Certificate Link (optional):', cert.link || '');
+        
+        if (newName && newIssuer && newDate) {
+            const updatedData = {
+                name: newName,
+                issuer: newIssuer,
+                date: newDate,
+                file: newFile || null,
+                link: newLink || null
+            };
+            
+            if (certificateManager) {
+                certificateManager.updateCertificate(certId, updatedData);
+                this.loadCertificatesData();
+            }
+        }
+    }
+    
+    viewCertificate(certId) {
+        if (certificateManager) {
+            certificateManager.openCertificate(certId);
+        }
+    }
+    
+    deleteCertificate(certId) {
+        if (confirm('Are you sure you want to delete this certificate?')) {
+            if (certificateManager) {
+                certificateManager.deleteCertificate(certId);
+                this.loadCertificatesData();
+            }
+        }
+    }
+    
+    // Project management methods (enhanced)
     editProject(id) {
-        this.showNotification(`Edit project ${id} functionality would be implemented here`, 'info');
+        const project = projectManager ? projectManager.projects[id] : null;
+        if (!project) {
+            this.showNotification('Project not found', 'error');
+            return;
+        }
+        
+        const newName = prompt('Project Name:', project.name);
+        const newDescription = prompt('Project Description:', project.description);
+        const newDemoUrl = prompt('Demo URL (optional):', project.demoUrl || '');
+        const newCodeUrl = prompt('GitHub Repository URL (optional):', project.codeUrl || '');
+        
+        if (newName && newDescription) {
+            const updatedData = {
+                name: newName,
+                description: newDescription,
+                demoUrl: newDemoUrl || null,
+                codeUrl: newCodeUrl || null
+            };
+            
+            if (projectManager) {
+                projectManager.updateProject(id, updatedData);
+                this.loadProjectsData();
+            }
+        }
     }
     
     viewProject(id) {
@@ -591,6 +696,36 @@ function closeAdminPanel() {
 function logoutAdmin() {
     if (adminPanel) {
         adminPanel.logout();
+    }
+}
+
+function openCertificateManager() {
+    const certName = prompt('Certificate Name:');
+    const certIssuer = prompt('Issuing Organization:');
+    const certDate = prompt('Date:');
+    const certFile = prompt('Certificate File URL (optional):');
+    const certLink = prompt('Certificate Link (optional):');
+    
+    if (certName && certIssuer && certDate) {
+        const certId = certName.toLowerCase().replace(/\s+/g, '-');
+        const certData = {
+            name: certName,
+            issuer: certIssuer,
+            date: certDate,
+            file: certFile || null,
+            link: certLink || null,
+            type: 'Certificate',
+            description: `${certName} from ${certIssuer}`,
+            icon: 'fas fa-certificate',
+            color: '#00d4ff'
+        };
+        
+        if (certificateManager) {
+            certificateManager.addCertificate(certId, certData);
+            if (adminPanel) {
+                adminPanel.loadCertificatesData();
+            }
+        }
     }
 }
 
