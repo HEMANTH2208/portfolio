@@ -591,461 +591,80 @@
         </div>
     </footer>
 
-    <!-- Advanced Admin Panel -->
-    <div id="adminModal" class="admin-modal">
-        <div class="admin-container">
-            <!-- Admin Login Screen -->
-            <div class="admin-login" id="adminLogin">
-                <div class="login-header">
-                    <div class="login-logo">
-                        <i class="fas fa-shield-alt"></i>
-                        <h2>ADMIN ACCESS</h2>
+            <!-- Simple Admin Panel -->
+            <div class="simple-admin-panel" id="adminPanel" style="display: none;">
+                <div class="admin-overlay" onclick="closeAdminPanel()"></div>
+                <div class="admin-card">
+                    <div class="admin-header">
+                        <h2>Quick Edit</h2>
+                        <button class="close-btn" onclick="closeAdminPanel()">×</button>
                     </div>
-                    <div class="security-indicator">
-                        <div class="security-dot"></div>
-                        <span>SECURE CONNECTION</span>
+                    
+                    <div class="admin-tabs">
+                        <button class="tab-btn active" onclick="switchAdminTab('profile')">Profile</button>
+                        <button class="tab-btn" onclick="switchAdminTab('projects')">Projects</button>
+                        <button class="tab-btn" onclick="switchAdminTab('certificates')">Certificates</button>
                     </div>
-                </div>
-                
-                <div class="login-form-container">
-                    <form id="adminLoginForm" class="cyber-form">
-                        <div class="input-group">
-                            <div class="input-wrapper">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" id="adminPassword" placeholder="Enter Access Code" required>
-                                <div class="input-border"></div>
+                    
+                    <div class="admin-content">
+                        <!-- Profile Tab -->
+                        <div id="profileAdminTab" class="admin-tab active">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" id="quickName" value="Hemanth B" placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" id="quickTitle" value="Aspiring Data Scientist" placeholder="Your title">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="quickEmail" value="bhemanth2221@gmail.com" placeholder="Your email">
+                            </div>
+                            <button class="save-btn" onclick="saveProfile()">Save Changes</button>
+                        </div>
+                        
+                        <!-- Projects Tab -->
+                        <div id="projectsAdminTab" class="admin-tab">
+                            <div class="quick-add">
+                                <input type="text" id="projectName" placeholder="Project name">
+                                <input type="url" id="projectUrl" placeholder="GitHub URL">
+                                <button class="add-btn" onclick="addProject()">Add Project</button>
+                            </div>
+                            <div id="projectsList" class="items-list">
+                                <div class="item">
+                                    <span>OutPass Pro</span>
+                                    <button onclick="removeItem(this)">Remove</button>
+                                </div>
+                                <div class="item">
+                                    <span>LinkedIn Automation</span>
+                                    <button onclick="removeItem(this)">Remove</button>
+                                </div>
                             </div>
                         </div>
-                        <button type="submit" class="cyber-btn primary">
-                            <span>AUTHENTICATE</span>
-                            <div class="btn-glow"></div>
-                        </button>
-                    </form>
-                    
-                    <div class="login-footer">
-                        <div class="access-attempts">
-                            <span>Attempts: <span id="attemptCount">0</span>/3</span>
-                        </div>
-                        <div class="system-status">
-                            <div class="status-dot online"></div>
-                            <span>SYSTEM ONLINE</span>
+                        
+                        <!-- Certificates Tab -->
+                        <div id="certificatesAdminTab" class="admin-tab">
+                            <div class="quick-add">
+                                <input type="text" id="certName" placeholder="Certificate name">
+                                <input type="text" id="certIssuer" placeholder="Issuer">
+                                <button class="add-btn" onclick="addCertificate()">Add Certificate</button>
+                            </div>
+                            <div id="certificatesList" class="items-list">
+                                <div class="item">
+                                    <span>HACKFINITY 2025</span>
+                                    <button onclick="removeItem(this)">Remove</button>
+                                </div>
+                                <div class="item">
+                                    <span>Design Thinking</span>
+                                    <button onclick="removeItem(this)">Remove</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Admin Dashboard -->
-            <div class="admin-dashboard" id="adminDashboard" style="display: none;">
-                <!-- Dashboard Header -->
-                <div class="dashboard-header">
-                    <div class="header-left">
-                        <h1>PORTFOLIO CONTROL CENTER</h1>
-                        <div class="breadcrumb">
-                            <span>Admin</span>
-                            <i class="fas fa-chevron-right"></i>
-                            <span id="currentSection">Dashboard</span>
-                        </div>
-                    </div>
-                    <div class="header-right">
-                        <div class="user-info">
-                            <div class="avatar-small">HB</div>
-                            <span>Hemanth B</span>
-                        </div>
-                        <button class="logout-btn" onclick="logoutAdmin()">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </button>
-                        <button class="close-admin" onclick="closeAdminPanel()">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Navigation Sidebar -->
-                <div class="admin-sidebar">
-                    <nav class="admin-nav">
-                        <div class="nav-item active" data-tab="overview">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>Overview</span>
-                            <div class="nav-indicator"></div>
-                        </div>
-                        <div class="nav-item" data-tab="profile">
-                            <i class="fas fa-user-edit"></i>
-                            <span>Profile</span>
-                            <div class="nav-indicator"></div>
-                        </div>
-                        <div class="nav-item" data-tab="projects">
-                            <i class="fas fa-project-diagram"></i>
-                            <span>Projects</span>
-                            <div class="nav-indicator"></div>
-                        </div>
-                        <div class="nav-item" data-tab="skills">
-                            <i class="fas fa-cogs"></i>
-                            <span>Skills</span>
-                            <div class="nav-indicator"></div>
-                        </div>
-                        <div class="nav-item" data-tab="certificates">
-                            <i class="fas fa-certificate"></i>
-                            <span>Certificates</span>
-                            <div class="nav-indicator"></div>
-                        </div>
-                        <div class="nav-item" data-tab="analytics">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Analytics</span>
-                            <div class="nav-indicator"></div>
-                        </div>
-                        <div class="nav-item" data-tab="settings">
-                            <i class="fas fa-sliders-h"></i>
-                            <span>Settings</span>
-                            <div class="nav-indicator"></div>
-                        </div>
                     </nav>
-                </div>
-                
-                <!-- Main Content Area -->
-                <div class="admin-content">
-                    <!-- Overview Tab -->
-                    <div id="overviewTab" class="tab-panel active">
-                        <div class="overview-grid">
-                            <div class="overview-card">
-                                <div class="card-header">
-                                    <h3>Quick Stats</h3>
-                                    <i class="fas fa-chart-bar"></i>
-                                </div>
-                                <div class="stats-grid">
-                                    <div class="stat-box">
-                                        <div class="stat-value" data-target="2847">0</div>
-                                        <div class="stat-label">Total Views</div>
-                                    </div>
-                                    <div class="stat-box">
-                                        <div class="stat-value" data-target="156">0</div>
-                                        <div class="stat-label">Contacts</div>
-                                    </div>
-                                    <div class="stat-box">
-                                        <div class="stat-value" data-target="89">0</div>
-                                        <div class="stat-label">Downloads</div>
-                                    </div>
-                                    <div class="stat-box">
-                                        <div class="stat-value" data-target="12">0</div>
-                                        <div class="stat-label">Projects</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="overview-card">
-                                <div class="card-header">
-                                    <h3>Recent Activity</h3>
-                                    <i class="fas fa-history"></i>
-                                </div>
-                                <div class="activity-list">
-                                    <div class="activity-item">
-                                        <div class="activity-icon">
-                                            <i class="fas fa-eye"></i>
-                                        </div>
-                                        <div class="activity-content">
-                                            <span>Portfolio viewed from India</span>
-                                            <small>2 minutes ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="activity-item">
-                                        <div class="activity-icon">
-                                            <i class="fas fa-envelope"></i>
-                                        </div>
-                                        <div class="activity-content">
-                                            <span>New contact form submission</span>
-                                            <small>15 minutes ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="activity-item">
-                                        <div class="activity-icon">
-                                            <i class="fas fa-download"></i>
-                                        </div>
-                                        <div class="activity-content">
-                                            <span>Resume downloaded</span>
-                                            <small>1 hour ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="overview-card">
-                                <div class="card-header">
-                                    <h3>System Status</h3>
-                                    <i class="fas fa-server"></i>
-                                </div>
-                                <div class="system-metrics">
-                                    <div class="metric">
-                                        <span>Performance</span>
-                                        <div class="metric-bar">
-                                            <div class="metric-fill" style="width: 94%"></div>
-                                        </div>
-                                        <span>94%</span>
-                                    </div>
-                                    <div class="metric">
-                                        <span>Uptime</span>
-                                        <div class="metric-bar">
-                                            <div class="metric-fill" style="width: 99%"></div>
-                                        </div>
-                                        <span>99%</span>
-                                    </div>
-                                    <div class="metric">
-                                        <span>Security</span>
-                                        <div class="metric-bar">
-                                            <div class="metric-fill" style="width: 100%"></div>
-                                        </div>
-                                        <span>100%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Profile Tab -->
-                    <div id="profileTab" class="tab-panel">
-                        <div class="panel-header">
-                            <h2>Profile Management</h2>
-                            <p>Update your personal information and portfolio details</p>
-                        </div>
-                        
-                        <div class="profile-editor">
-                            <form id="profileForm" class="cyber-form">
-                                <div class="form-grid">
-                                    <div class="form-section">
-                                        <h3>Basic Information</h3>
-                                        <div class="input-group">
-                                            <label>Full Name</label>
-                                            <div class="input-wrapper">
-                                                <input type="text" id="editName" value="Hemanth B">
-                                                <div class="input-border"></div>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <label>Professional Title</label>
-                                            <div class="input-wrapper">
-                                                <input type="text" id="editTitle" value="Aspiring Data Scientist | AI & ML Enthusiast">
-                                                <div class="input-border"></div>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <label>Description</label>
-                                            <div class="input-wrapper">
-                                                <textarea id="editDescription" rows="4">Fellow at NxtWave's CCBP 4.0 Academy, passionate about transforming data into insights</textarea>
-                                                <div class="input-border"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-section">
-                                        <h3>Contact Information</h3>
-                                        <div class="input-group">
-                                            <label>Email</label>
-                                            <div class="input-wrapper">
-                                                <input type="email" id="editEmail" value="bhemanth2221@gmail.com">
-                                                <div class="input-border"></div>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <label>LinkedIn</label>
-                                            <div class="input-wrapper">
-                                                <input type="url" id="editLinkedin" value="https://linkedin.com/in/hemanthb22">
-                                                <div class="input-border"></div>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <label>Location</label>
-                                            <div class="input-wrapper">
-                                                <input type="text" id="editLocation" value="Sriperumbudur, Chennai, 602105">
-                                                <div class="input-border"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-actions">
-                                    <button type="submit" class="cyber-btn primary">
-                                        <span>UPDATE PROFILE</span>
-                                        <div class="btn-glow"></div>
-                                    </button>
-                                    <button type="button" class="cyber-btn secondary">
-                                        <span>PREVIEW CHANGES</span>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <!-- Projects Tab -->
-                    <div id="projectsTab" class="tab-panel">
-                        <div class="panel-header">
-                            <h2>Project Management</h2>
-                            <button class="cyber-btn primary" onclick="openProjectModal()">
-                                <i class="fas fa-plus"></i>
-                                <span>ADD PROJECT</span>
-                            </button>
-                        </div>
-                        
-                        <div class="projects-grid" id="projectsList">
-                            <!-- Projects will be loaded here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Skills Tab -->
-                    <div id="skillsTab" class="tab-panel">
-                        <div class="panel-header">
-                            <h2>Skills Management</h2>
-                            <button class="cyber-btn primary" onclick="openSkillModal()">
-                                <i class="fas fa-plus"></i>
-                                <span>ADD SKILL</span>
-                            </button>
-                        </div>
-                        
-                        <div class="skills-manager" id="skillsList">
-                            <!-- Skills will be loaded here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Certificates Tab -->
-                    <div id="certificatesTab" class="tab-panel">
-                        <div class="panel-header">
-                            <h2>Certificate Management</h2>
-                            <button class="cyber-btn primary" onclick="openCertificateManager()">
-                                <i class="fas fa-plus"></i>
-                                <span>ADD CERTIFICATE</span>
-                            </button>
-                        </div>
-                        
-                        <div class="certificates-manager" id="certificatesList">
-                            <!-- Certificates will be loaded here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Analytics Tab -->
-                    <div id="analyticsTab" class="tab-panel">
-                        <div class="panel-header">
-                            <h2>Analytics Dashboard</h2>
-                            <div class="time-filter">
-                                <button class="filter-btn active">7D</button>
-                                <button class="filter-btn">30D</button>
-                                <button class="filter-btn">90D</button>
-                                <button class="filter-btn">1Y</button>
-                            </div>
-                        </div>
-                        
-                        <div class="analytics-dashboard">
-                            <div class="analytics-cards">
-                                <div class="analytics-card">
-                                    <div class="card-icon">
-                                        <i class="fas fa-eye"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Page Views</h3>
-                                        <div class="card-value">2,847</div>
-                                        <div class="card-change positive">+12.5%</div>
-                                    </div>
-                                    <div class="card-chart">
-                                        <canvas id="viewsChart" width="100" height="40"></canvas>
-                                    </div>
-                                </div>
-                                
-                                <div class="analytics-card">
-                                    <div class="card-icon">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Unique Visitors</h3>
-                                        <div class="card-value">1,234</div>
-                                        <div class="card-change positive">+8.3%</div>
-                                    </div>
-                                    <div class="card-chart">
-                                        <canvas id="visitorsChart" width="100" height="40"></canvas>
-                                    </div>
-                                </div>
-                                
-                                <div class="analytics-card">
-                                    <div class="card-icon">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Contact Forms</h3>
-                                        <div class="card-value">156</div>
-                                        <div class="card-change positive">+23.1%</div>
-                                    </div>
-                                    <div class="card-chart">
-                                        <canvas id="contactsChart" width="100" height="40"></canvas>
-                                    </div>
-                                </div>
-                                
-                                <div class="analytics-card">
-                                    <div class="card-icon">
-                                        <i class="fas fa-download"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h3>Downloads</h3>
-                                        <div class="card-value">89</div>
-                                        <div class="card-change negative">-2.1%</div>
-                                    </div>
-                                    <div class="card-chart">
-                                        <canvas id="downloadsChart" width="100" height="40"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Settings Tab -->
-                    <div id="settingsTab" class="tab-panel">
-                        <div class="panel-header">
-                            <h2>System Settings</h2>
-                            <p>Configure your portfolio preferences and security settings</p>
-                        </div>
-                        
-                        <div class="settings-grid">
-                            <div class="settings-section">
-                                <h3>Security</h3>
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <span>Change Password</span>
-                                        <small>Update your admin access password</small>
-                                    </div>
-                                    <button class="cyber-btn secondary">Change</button>
-                                </div>
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <span>Two-Factor Authentication</span>
-                                        <small>Add extra security to your account</small>
-                                    </div>
-                                    <div class="toggle-switch">
-                                        <input type="checkbox" id="2fa">
-                                        <label for="2fa"></label>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="settings-section">
-                                <h3>Appearance</h3>
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <span>Theme</span>
-                                        <small>Choose your preferred theme</small>
-                                    </div>
-                                    <select class="cyber-select">
-                                        <option>Cyberpunk Dark</option>
-                                        <option>Neon Blue</option>
-                                        <option>Matrix Green</option>
-                                    </select>
-                                </div>
-                                <div class="setting-item">
-                                    <div class="setting-info">
-                                        <span>Animations</span>
-                                        <small>Enable or disable animations</small>
-                                    </div>
-                                    <div class="toggle-switch">
-                                        <input type="checkbox" id="animations" checked>
-                                        <label for="animations"></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
