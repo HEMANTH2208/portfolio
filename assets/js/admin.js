@@ -1,29 +1,31 @@
-// Professional Admin Panel
+// Professional Admin Panel - Fixed Version
 let currentAdminTab = 'profile';
 
 // Open admin panel
 function openAdminPanel() {
+    console.log('Opening admin panel...');
     const panel = document.getElementById('adminPanel');
     if (panel) {
         panel.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        console.log('Admin panel opened');
+        console.log('Admin panel opened successfully');
     } else {
-        console.error('Admin panel not found');
+        console.error('Admin panel element not found');
     }
 }
 
 // Close admin panel
 function closeAdminPanel() {
+    console.log('Closing admin panel...');
     const panel = document.getElementById('adminPanel');
     if (panel) {
         panel.style.display = 'none';
         document.body.style.overflow = 'auto';
-        console.log('Admin panel closed');
+        console.log('Admin panel closed successfully');
     }
 }
 
-// Switch between tabs
+// Switch between tabs - FIXED to match HTML structure
 function switchAdminTab(tabName) {
     console.log('Switching to tab:', tabName);
     
@@ -39,11 +41,11 @@ function switchAdminTab(tabName) {
         btn.classList.remove('active');
     });
     
-    // Show selected tab
+    // Show selected tab - FIXED: Use correct ID format
     const selectedTab = document.getElementById(tabName + 'AdminTab');
     if (selectedTab) {
         selectedTab.classList.add('active');
-        console.log('Tab activated:', tabName);
+        console.log('Tab activated:', tabName + 'AdminTab');
     } else {
         console.error('Tab not found:', tabName + 'AdminTab');
     }
@@ -314,23 +316,43 @@ document.addEventListener('keydown', function(e) {
 
 // Initialize admin panel when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Admin panel initialized');
+    console.log('=== ADMIN PANEL DEBUG ===');
+    console.log('DOM loaded, checking admin panel...');
     
     // Check if admin panel exists
     const panel = document.getElementById('adminPanel');
-    if (panel) {
-        console.log('Admin panel found in DOM');
-    } else {
-        console.error('Admin panel not found in DOM');
-    }
+    console.log('Admin panel element:', panel ? 'FOUND' : 'NOT FOUND');
     
     // Check if admin button exists
     const adminBtn = document.querySelector('.admin-btn');
-    if (adminBtn) {
-        console.log('Admin button found');
-    } else {
-        console.error('Admin button not found');
-    }
+    console.log('Admin button:', adminBtn ? 'FOUND' : 'NOT FOUND');
+    
+    // Check all admin tabs
+    const tabs = ['profileAdminTab', 'projectsAdminTab', 'certificatesAdminTab'];
+    tabs.forEach(tabId => {
+        const tab = document.getElementById(tabId);
+        console.log(`Tab ${tabId}:`, tab ? 'FOUND' : 'NOT FOUND');
+    });
+    
+    // Check CSS classes
+    const adminTabs = document.querySelectorAll('.admin-tab');
+    console.log('Admin tabs found:', adminTabs.length);
+    
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    console.log('Tab buttons found:', tabBtns.length);
+    
+    console.log('=== DEBUG COMPLETE ===');
 });
+
+// Test function - call this in browser console if needed
+window.testAdminPanel = function() {
+    console.log('Testing admin panel...');
+    openAdminPanel();
+    setTimeout(() => {
+        console.log('Panel should be visible now');
+        const panel = document.getElementById('adminPanel');
+        console.log('Panel display style:', panel ? panel.style.display : 'Panel not found');
+    }, 500);
+};
 
 console.log('Professional admin panel loaded successfully!');

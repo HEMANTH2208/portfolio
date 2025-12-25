@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Debug</title>
+    <style>
+        :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #1a1a1a;
+            --neon-blue: #00d4ff;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+        
+        body {
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .test-btn {
+            background: var(--neon-blue);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        
+        .debug-info {
+            background: var(--secondary-dark);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid var(--neon-blue);
+        }
+        
+        /* Simple Admin Panel Styles */
+        .simple-admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-card {
+            position: relative;
+            background: var(--secondary-dark);
+            border: 1px solid var(--neon-blue);
+            border-radius: 15px;
+            width: 500px;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(139, 92, 246, 0.1));
+        }
+
+        .admin-header h2 {
+            color: var(--neon-blue);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        .admin-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--neon-blue);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .admin-content {
+            padding: 25px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .admin-tab {
+            display: none;
+        }
+
+        .admin-tab.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--primary-dark);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--neon-blue), #8b5cf6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Panel Debug Test</h1>
+    
+    <div class="debug-info">
+        <h3>Debug Information</h3>
+        <p>This page tests the admin panel in isolation.</p>
+        <button class="test-btn" onclick="openAdminPanel()">Open Admin Panel</button>
+        <button class="test-btn" onclick="runDebugTest()">Run Debug Test</button>
+    </div>
+    
+    <div id="debugOutput" class="debug-info" style="display: none;">
+        <h3>Debug Output</h3>
+        <div id="debugText"></div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="simple-admin-panel" id="adminPanel" style="display: none;">
+        <div class="admin-overlay" onclick="closeAdminPanel()"></div>
+        <div class="admin-card">
+            <div class="admin-header">
+                <h2>Quick Edit</h2>
+                <button class="close-btn" onclick="closeAdminPanel()">×</button>
+            </div>
+            
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchAdminTab('profile')">Profile</button>
+                <button class="tab-btn" onclick="switchAdminTab('projects')">Projects</button>
+                <button class="tab-btn" onclick="switchAdminTab('certificates')">Certificates</button>
+            </div>
+            
+            <div class="admin-content">
+                <!-- Profile Tab -->
+                <div id="profileAdminTab" class="admin-tab active">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="quickName" value="Hemanth B" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="quickTitle" value="Aspiring Data Scientist" placeholder="Your title">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="quickEmail" value="bhemanth2221@gmail.com" placeholder="Your email">
+                    </div>
+                    <button class="save-btn" onclick="saveProfile()">Save Changes</button>
+                </div>
+                
+                <!-- Projects Tab -->
+                <div id="projectsAdminTab" class="admin-tab">
+                    <h3>Projects Management</h3>
+                    <p>This is the projects tab content.</p>
+                </div>
+                
+                <!-- Certificates Tab -->
+                <div id="certificatesAdminTab" class="admin-tab">
+                    <h3>Certificates Management</h3>
+                    <p>This is the certificates tab content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Admin Panel Functions
+        function openAdminPanel() {
+            console.log('Opening admin panel...');
+            const panel = document.getElementById('adminPanel');
+            if (panel) {
+                panel.style.display = 'flex';
+                console.log('Admin panel opened successfully');
+                logDebug('Admin panel opened successfully');
+            } else {
+                console.error('Admin panel element not found');
+                logDebug('ERROR: Admin panel element not found');
+            }
+        }
+
+        function closeAdminPanel() {
+            console.log('Closing admin panel...');
+            const panel = document.getElementById('adminPanel');
+            if (panel) {
+                panel.style.display = 'none';
+                console.log('Admin panel closed successfully');
+                logDebug('Admin panel closed successfully');
+            }
+        }
+
+        function switchAdminTab(tabName) {
+            console.log('Switching to tab:', tabName);
+            
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.admin-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const selectedTab = document.getElementById(tabName + 'AdminTab');
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+                console.log('Tab activated:', tabName + 'AdminTab');
+                logDebug('Tab activated: ' + tabName + 'AdminTab');
+            } else {
+                console.error('Tab not found:', tabName + 'AdminTab');
+                logDebug('ERROR: Tab not found: ' + tabName + 'AdminTab');
+            }
+            
+            // Add active class to clicked button
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        }
+
+        function saveProfile() {
+            logDebug('Profile save function called');
+            alert('Profile saved! (This is just a test)');
+        }
+
+        function runDebugTest() {
+            const debugOutput = document.getElementById('debugOutput');
+            const debugText = document.getElementById('debugText');
+            
+            debugOutput.style.display = 'block';
+            debugText.innerHTML = '';
+            
+            logDebug('=== ADMIN PANEL DEBUG TEST ===');
+            
+            // Check if admin panel exists
+            const panel = document.getElementById('adminPanel');
+            logDebug('Admin panel element: ' + (panel ? 'FOUND' : 'NOT FOUND'));
+            
+            // Check all admin tabs
+            const tabs = ['profileAdminTab', 'projectsAdminTab', 'certificatesAdminTab'];
+            tabs.forEach(tabId => {
+                const tab = document.getElementById(tabId);
+                logDebug('Tab ' + tabId + ': ' + (tab ? 'FOUND' : 'NOT FOUND'));
+            });
+            
+            // Check CSS classes
+            const adminTabs = document.querySelectorAll('.admin-tab');
+            logDebug('Admin tabs found: ' + adminTabs.length);
+            
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            logDebug('Tab buttons found: ' + tabBtns.length);
+            
+            logDebug('=== DEBUG TEST COMPLETE ===');
+        }
+
+        function logDebug(message) {
+            const debugText = document.getElementById('debugText');
+            if (debugText) {
+                debugText.innerHTML += '<div>' + message + '</div>';
+            }
+            console.log(message);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Debug page loaded');
+            logDebug('Debug page loaded successfully');
+        });
+    </script>
+</body>
+</html>
