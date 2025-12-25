@@ -1532,44 +1532,32 @@ section {
     transform: translateY(-3px);
 }
 
-/* Simple Admin Panel Styles */
+/* Simple Admin Panel Styles - No Overlay */
 .simple-admin-panel {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 20px;
+    right: 20px;
     z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.admin-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
+    width: auto;
+    height: auto;
 }
 
 .admin-card {
     position: relative;
-    background: var(--secondary-dark);
+    background: rgba(26, 26, 26, 0.95);
     border: 1px solid var(--neon-blue);
     border-radius: 15px;
-    width: 500px;
+    width: 400px;
     max-height: 80vh;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    animation: slideIn 0.3s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    animation: slideInFromRight 0.3s ease;
 }
 
-@keyframes slideIn {
-    from { opacity: 0; transform: scale(0.9) translateY(-20px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(100%) scale(0.9); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
 }
 
 .admin-header {
@@ -1814,9 +1802,6 @@ section {
     .quick-add .add-btn {
         width: 100%;
     }
-}
-    color: var(--neon-blue);
-    animation: shieldPulse 2s infinite;
 }
 
 @keyframes shieldPulse {

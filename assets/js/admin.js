@@ -1,358 +1,195 @@
-// Professional Admin Panel - Fixed Version
-let currentAdminTab = 'profile';
+/* ===============================
+   PROFESSIONAL ADMIN PANEL
+   FIXED + OPTIMIZED
+   =============================== */
 
-// Open admin panel
-function openAdminPanel() {
-    console.log('Opening admin panel...');
-    const panel = document.getElementById('adminPanel');
-    if (panel) {
-        panel.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        console.log('Admin panel opened successfully');
-    } else {
-        console.error('Admin panel element not found');
-    }
-}
+(() => {
+    "use strict";
 
-// Close admin panel
-function closeAdminPanel() {
-    console.log('Closing admin panel...');
-    const panel = document.getElementById('adminPanel');
-    if (panel) {
-        panel.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        console.log('Admin panel closed successfully');
-    }
-}
+    let currentAdminTab = "profile";
 
-// Switch between tabs - FIXED to match HTML structure
-function switchAdminTab(tabName) {
-    console.log('Switching to tab:', tabName);
-    
-    // Hide all tabs
-    const tabs = document.querySelectorAll('.admin-tab');
-    tabs.forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Remove active class from all tab buttons
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    // Show selected tab - FIXED: Use correct ID format
-    const selectedTab = document.getElementById(tabName + 'AdminTab');
-    if (selectedTab) {
-        selectedTab.classList.add('active');
-        console.log('Tab activated:', tabName + 'AdminTab');
-    } else {
-        console.error('Tab not found:', tabName + 'AdminTab');
-    }
-    
-    // Add active class to clicked button
-    if (event && event.target) {
-        event.target.classList.add('active');
-    }
-    
-    currentAdminTab = tabName;
-}
+    /* ---------- PANEL OPEN / CLOSE ---------- */
 
-// Save profile changes
-function saveProfile() {
-    console.log('Saving profile...');
-    
-    const name = document.getElementById('quickName')?.value || '';
-    const title = document.getElementById('quickTitle')?.value || '';
-    const email = document.getElementById('quickEmail')?.value || '';
-    
-    console.log('Profile data:', { name, title, email });
-    
-    // Update main page content
-    const heroTitle = document.querySelector('.hero-title .typing-text');
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-    
-    if (heroTitle && name) {
-        heroTitle.textContent = `Hi, I'm ${name}`;
-        console.log('Updated hero title');
-    }
-    if (heroSubtitle && title) {
-        heroSubtitle.textContent = title;
-        console.log('Updated hero subtitle');
-    }
-    
-    // Update email links
-    if (email) {
-        const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
-        emailLinks.forEach(link => {
-            link.href = `mailto:${email}`;
-        });
-        console.log('Updated email links');
-    }
-    
-    showNotification('Profile updated successfully!', 'success');
-}
+    window.openAdminPanel = () => {
+        const panel = document.getElementById("adminPanel");
+        if (!panel) return console.error("Admin panel not found");
 
-// Add new project
-function addProject() {
-    console.log('Adding project...');
-    
-    const name = document.getElementById('projectName')?.value || '';
-    const url = document.getElementById('projectUrl')?.value || '';
-    
-    if (name.trim() === '') {
-        showNotification('Please enter a project name', 'error');
-        return;
-    }
-    
-    const projectsList = document.getElementById('projectsList');
-    if (projectsList) {
-        const newItem = document.createElement('div');
-        newItem.className = 'item';
-        newItem.innerHTML = `
-            <div class="item-info">
-                <span class="item-title">${name}</span>
-                <small>${url || 'No URL provided'}</small>
-            </div>
-            <div class="item-actions">
-                <button onclick="editProject(this)" title="Edit">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button onclick="removeItem(this)" title="Remove">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `;
-        
-        projectsList.appendChild(newItem);
-        
-        // Clear inputs
-        document.getElementById('projectName').value = '';
-        document.getElementById('projectUrl').value = '';
-        
-        showNotification('Project added successfully!', 'success');
-        console.log('Project added:', name);
-    }
-}
+        panel.style.display = "block";
+        console.log("Admin panel opened - no overlay mode");
+    };
 
-// Add new certificate
-function addCertificate() {
-    console.log('Adding certificate...');
-    
-    const name = document.getElementById('certName')?.value || '';
-    const issuer = document.getElementById('certIssuer')?.value || '';
-    
-    if (name.trim() === '' || issuer.trim() === '') {
-        showNotification('Please fill in all fields', 'error');
-        return;
-    }
-    
-    const certsList = document.getElementById('certificatesList');
-    if (certsList) {
-        const newItem = document.createElement('div');
-        newItem.className = 'item';
-        newItem.innerHTML = `
-            <div class="item-info">
-                <span class="item-title">${name}</span>
-                <small>${issuer}</small>
-            </div>
-            <div class="item-actions">
-                <button onclick="editCertificate(this)" title="Edit">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button onclick="removeItem(this)" title="Remove">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `;
-        
-        certsList.appendChild(newItem);
-        
-        // Clear inputs
-        document.getElementById('certName').value = '';
-        document.getElementById('certIssuer').value = '';
-        
-        showNotification('Certificate added successfully!', 'success');
-        console.log('Certificate added:', name);
-    }
-}
+    window.closeAdminPanel = () => {
+        const panel = document.getElementById("adminPanel");
+        if (!panel) return;
 
-// Edit project
-function editProject(button) {
-    const item = button.closest('.item');
-    const titleElement = item.querySelector('.item-title');
-    const currentName = titleElement.textContent;
-    
-    const newName = prompt('Edit project name:', currentName);
-    if (newName && newName.trim() !== '') {
-        titleElement.textContent = newName;
-        showNotification('Project updated successfully!', 'success');
-    }
-}
+        panel.style.display = "none";
+        console.log("Admin panel closed");
+    };
 
-// Edit certificate
-function editCertificate(button) {
-    const item = button.closest('.item');
-    const titleElement = item.querySelector('.item-title');
-    const issuerElement = item.querySelector('small');
-    const currentName = titleElement.textContent;
-    const currentIssuer = issuerElement.textContent;
-    
-    const newName = prompt('Edit certificate name:', currentName);
-    const newIssuer = prompt('Edit issuer:', currentIssuer);
-    
-    if (newName && newName.trim() !== '') {
-        titleElement.textContent = newName;
-    }
-    if (newIssuer && newIssuer.trim() !== '') {
-        issuerElement.textContent = newIssuer;
-    }
-    
-    showNotification('Certificate updated successfully!', 'success');
-}
+    /* ---------- TAB SWITCHING (FIXED) ---------- */
 
-// Remove item
-function removeItem(button) {
-    const item = button.closest('.item');
-    if (item) {
-        item.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-            item.remove();
-            showNotification('Item removed', 'info');
-        }, 300);
-    }
-}
+    window.switchAdminTab = (tabName, btn) => {
+        document.querySelectorAll(".admin-tab").forEach(tab =>
+            tab.classList.remove("active")
+        );
 
-// Enhanced notification system
-function showNotification(message, type = 'info') {
-    console.log('Notification:', message, type);
-    
-    // Remove existing notifications
-    const existingNotifications = document.querySelectorAll('.admin-notification');
-    existingNotifications.forEach(notif => notif.remove());
-    
-    const notification = document.createElement('div');
-    notification.className = 'admin-notification';
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 8px;
-        z-index: 10002;
-        font-weight: 500;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        animation: slideInRight 0.3s ease;
-        max-width: 300px;
-        word-wrap: break-word;
-    `;
-    
-    // Add icon based on type
-    const icon = type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ';
-    notification.innerHTML = `<span style="margin-right: 8px;">${icon}</span>${message}`;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 3000);
-}
+        document.querySelectorAll(".tab-btn").forEach(b =>
+            b.classList.remove("active")
+        );
 
-// Add enhanced CSS animations
-const adminStyle = document.createElement('style');
-adminStyle.textContent = `
-    @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOutRight {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(-100%); opacity: 0; }
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    
-    .simple-admin-panel {
-        animation: fadeIn 0.3s ease;
-    }
-    
-    .admin-card {
-        animation: slideInFromBottom 0.4s ease;
-    }
-    
-    @keyframes slideInFromBottom {
-        from { transform: translateY(50px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-`;
-document.head.appendChild(adminStyle);
+        const targetTab = document.getElementById(`${tabName}AdminTab`);
+        if (!targetTab) return console.error("Tab not found:", tabName);
 
-// Enhanced event listeners
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('admin-overlay')) {
-        closeAdminPanel();
-    }
-});
+        targetTab.classList.add("active");
+        if (btn) btn.classList.add("active");
 
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const panel = document.getElementById('adminPanel');
-        if (panel && panel.style.display === 'flex') {
-            closeAdminPanel();
+        currentAdminTab = tabName;
+    };
+
+    /* ---------- PROFILE SAVE ---------- */
+
+    window.saveProfile = () => {
+        const name = document.getElementById("quickName")?.value.trim();
+        const title = document.getElementById("quickTitle")?.value.trim();
+        const email = document.getElementById("quickEmail")?.value.trim();
+
+        const heroTitle = document.querySelector(".hero-title .typing-text");
+        const heroSubtitle = document.querySelector(".hero-subtitle");
+
+        if (heroTitle && name) heroTitle.textContent = `Hi, I'm ${name}`;
+        if (heroSubtitle && title) heroSubtitle.textContent = title;
+
+        if (email) {
+            document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+                link.href = `mailto:${email}`;
+            });
         }
+
+        showNotification("Profile updated successfully", "success");
+    };
+
+    /* ---------- PROJECTS ---------- */
+
+    window.addProject = () => {
+        const name = document.getElementById("projectName")?.value.trim();
+        const url = document.getElementById("projectUrl")?.value.trim();
+
+        if (!name) return showNotification("Project name required", "error");
+
+        addItem("projectsList", name, url);
+        clearInputs("projectName", "projectUrl");
+
+        showNotification("Project added", "success");
+    };
+
+    window.editProject = btn => editItem(btn, "Edit project name");
+
+    /* ---------- CERTIFICATES ---------- */
+
+    window.addCertificate = () => {
+        const name = document.getElementById("certName")?.value.trim();
+        const issuer = document.getElementById("certIssuer")?.value.trim();
+
+        if (!name || !issuer)
+            return showNotification("All fields required", "error");
+
+        addItem("certificatesList", name, issuer);
+        clearInputs("certName", "certIssuer");
+
+        showNotification("Certificate added", "success");
+    };
+
+    window.editCertificate = btn =>
+        editItem(btn, "Edit certificate name", true);
+
+    /* ---------- ITEM HELPERS ---------- */
+
+    function addItem(containerId, title, subtitle) {
+        const list = document.getElementById(containerId);
+        if (!list) return;
+
+        const item = document.createElement("div");
+        item.className = "item";
+        item.innerHTML = `
+            <div class="item-info">
+                <span class="item-title">${title}</span>
+                <small>${subtitle || ""}</small>
+            </div>
+            <div class="item-actions">
+                <button onclick="editProject(this)">✎</button>
+                <button onclick="removeItem(this)">🗑</button>
+            </div>
+        `;
+        list.appendChild(item);
     }
-});
 
-// Initialize admin panel when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== ADMIN PANEL DEBUG ===');
-    console.log('DOM loaded, checking admin panel...');
-    
-    // Check if admin panel exists
-    const panel = document.getElementById('adminPanel');
-    console.log('Admin panel element:', panel ? 'FOUND' : 'NOT FOUND');
-    
-    // Check if admin button exists
-    const adminBtn = document.querySelector('.admin-btn');
-    console.log('Admin button:', adminBtn ? 'FOUND' : 'NOT FOUND');
-    
-    // Check all admin tabs
-    const tabs = ['profileAdminTab', 'projectsAdminTab', 'certificatesAdminTab'];
-    tabs.forEach(tabId => {
-        const tab = document.getElementById(tabId);
-        console.log(`Tab ${tabId}:`, tab ? 'FOUND' : 'NOT FOUND');
+    function editItem(btn, msg, dual = false) {
+        const item = btn.closest(".item");
+        const title = item.querySelector(".item-title");
+        const small = item.querySelector("small");
+
+        const newTitle = prompt(msg, title.textContent);
+        if (newTitle) title.textContent = newTitle;
+
+        if (dual) {
+            const newSmall = prompt("Edit issuer:", small.textContent);
+            if (newSmall) small.textContent = newSmall;
+        }
+
+        showNotification("Updated successfully", "success");
+    }
+
+    window.removeItem = btn => {
+        const item = btn.closest(".item");
+        if (!item) return;
+
+        item.style.opacity = "0";
+        setTimeout(() => item.remove(), 300);
+        showNotification("Item removed", "info");
+    };
+
+    function clearInputs(...ids) {
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = "";
+        });
+    }
+
+    /* ---------- NOTIFICATIONS ---------- */
+
+    function showNotification(msg, type = "info") {
+        document.querySelectorAll(".admin-notification").forEach(n => n.remove());
+
+        const colors = {
+            success: "#4CAF50",
+            error: "#f44336",
+            info: "#2196F3"
+        };
+
+        const n = document.createElement("div");
+        n.className = "admin-notification";
+        n.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${colors[type]};
+            color: #fff;
+            padding: 14px 18px;
+            border-radius: 8px;
+            z-index: 9999;
+            font-weight: 500;
+        `;
+        n.textContent = msg;
+        document.body.appendChild(n);
+
+        setTimeout(() => n.remove(), 2500);
+    }
+
+    /* ---------- GLOBAL EVENTS ---------- */
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "Escape") closeAdminPanel();
     });
-    
-    // Check CSS classes
-    const adminTabs = document.querySelectorAll('.admin-tab');
-    console.log('Admin tabs found:', adminTabs.length);
-    
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    console.log('Tab buttons found:', tabBtns.length);
-    
-    console.log('=== DEBUG COMPLETE ===');
-});
 
-// Test function - call this in browser console if needed
-window.testAdminPanel = function() {
-    console.log('Testing admin panel...');
-    openAdminPanel();
-    setTimeout(() => {
-        console.log('Panel should be visible now');
-        const panel = document.getElementById('adminPanel');
-        console.log('Panel display style:', panel ? panel.style.display : 'Panel not found');
-    }, 500);
-};
-
-console.log('Professional admin panel loaded successfully!');
+    console.log("✅ Admin panel loaded without errors");
+})();
